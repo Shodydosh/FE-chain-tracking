@@ -1,12 +1,8 @@
 import React from "react";
-import InvestigateLayout from "./layout";
+import InvestigateContent from "@/components/investigate/InvestigateContent";
 
 const page = () => {
-  return (
-    <div>
-      <h1>555</h1>
-    </div>
-  );
+  return <InvestigateContent />;
 };
 
 export default page;
