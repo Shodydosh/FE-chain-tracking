@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <TooltipProvider>{children}</TooltipProvider>
+        <AntdRegistry>
+          <TooltipProvider>{children}</TooltipProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
