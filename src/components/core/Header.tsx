@@ -1,12 +1,12 @@
-import React from "react";
-import Image from "next/image";
+import React from 'react'
+import Image from 'next/image'
 
-import MobileSidebar from "./header/MobileSidebar";
-import HeadBreadcrumb from "./header/Breadcrumb";
+import MobileSidebar from './header/MobileSidebar'
+import HeadBreadcrumb from './header/Breadcrumb'
 
-import { Search } from "lucide-react";
+import { Search } from 'lucide-react'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,12 +14,12 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/dropdown-menu'
+import { Input } from '@/components/ui/input'
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+    <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:py-3.5 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
       <MobileSidebar />
       <HeadBreadcrumb />
       <div className="relative ml-auto flex-1 md:grow-0">
@@ -56,7 +56,7 @@ const Header = () => {
         </DropdownMenuContent>
       </DropdownMenu>
     </header>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

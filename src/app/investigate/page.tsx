@@ -1,8 +1,8 @@
-import React from "react";
-import InvestigateContent from "@/components/investigate/InvestigateContent";
+import React from 'react'
+import InvestigateContent from '@/components/investigate/InvestigateContent'
 
 const page = () => {
-  return <InvestigateContent />;
-};
+  return <InvestigateContent />
+}
 
-export default page;
+export default page

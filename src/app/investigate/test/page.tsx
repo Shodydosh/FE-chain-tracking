@@ -1,7 +1,8 @@
 import React from "react";
+import TestContent from "@/components/investigate/TestContent";
 
 const page = () => {
-  return <div>test</div>;
+  return <TestContent />;
 };
 
 export default page;
