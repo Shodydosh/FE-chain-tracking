@@ -52,13 +52,7 @@ const InputCard = () => {
         <CardDescription>Recent orders from your store.</CardDescription>
       </CardHeader>
       <CardContent>
-        <Input
-          type="text"
-          placeholder="Input an address / transaction's hash"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <div className="flex mt-2 justify-between">
+        <div className="gap-2 flex">
           <Select onValueChange={(value) => setChain(value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Select a chain" />
@@ -72,7 +66,14 @@ const InputCard = () => {
               </SelectGroup>
             </SelectContent>
           </Select>
-
+          <Input
+            type="text"
+            placeholder="Input an address / transaction's hash"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+        </div>
+        <div className="flex mt-2 justify-end">
           <div className="flex gap-2 items-center">
             {/* START DATE */}
             <Popover>
@@ -137,12 +138,10 @@ const InputCard = () => {
         <Button
           size="default"
           variant="outline"
-          className="col-span-1 h-12 w-48 gap-1"
+          className=" col-span-1 h-12 w-48 gap-1"
         >
           <FileSearchIcon className="h-3.5 w-3.5" />
-          <span className="lg:sr-only xl:not-sr-only xl:whitespace-nowrap">
-            Track
-          </span>
+          <span className="xl:whitespace-nowrap">Track</span>
         </Button>
       </CardFooter>
     </Card>
