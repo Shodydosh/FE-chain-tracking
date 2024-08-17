@@ -1,8 +1,16 @@
 'use client'
 
 import React, { useEffect } from 'react'
+
+// ICONS
 import { FileSearchIcon, ArrowRight } from 'lucide-react'
 import { CalendarIcon } from '@radix-ui/react-icons'
+import {
+  EthereumCircleColorful,
+  BnbCircleColorful,
+  PolygonCircleColorful,
+} from '@ant-design/web3-icons'
+// COMPONENTS
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -25,11 +33,7 @@ import {
 import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
 import { Calendar } from '@/components/ui/calendar'
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Separator } from '../ui/separator'
 
 const InputCard = () => {
@@ -60,9 +64,18 @@ const InputCard = () => {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Chain</SelectLabel>
-                <SelectItem value="bnb-smartchain">BNB Smartchain</SelectItem>
-                <SelectItem value="ethereum">Ethereum</SelectItem>
-                <SelectItem value="polygon">Polygon</SelectItem>
+                <SelectItem value="ethereum">
+                  <EthereumCircleColorful className="mr-2" />
+                  Ethereum
+                </SelectItem>
+                <SelectItem value="bnb-smartchain">
+                  <BnbCircleColorful className="mr-2" />
+                  BNB Smartchain
+                </SelectItem>
+                <SelectItem value="polygon">
+                  <PolygonCircleColorful className="mr-2" />
+                  Polygon
+                </SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -86,11 +99,7 @@ const InputCard = () => {
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {startDate ? (
-                    format(startDate, 'PPP')
-                  ) : (
-                    <span>Select start date</span>
-                  )}
+                  {startDate ? format(startDate, 'PPP') : <span>Select start date</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -114,11 +123,7 @@ const InputCard = () => {
                   )}
                 >
                   <CalendarIcon className="mr-2 h-4 w-4" />
-                  {endDate ? (
-                    format(endDate, 'PPP')
-                  ) : (
-                    <span>Select end date</span>
-                  )}
+                  {endDate ? format(endDate, 'PPP') : <span>Select end date</span>}
                 </Button>
               </PopoverTrigger>
               <PopoverContent className="w-auto p-0" align="start">
@@ -135,11 +140,7 @@ const InputCard = () => {
       </CardContent>
       <Separator className="my-4" />
       <CardFooter className="gap-0.5 grid justify-end">
-        <Button
-          size="default"
-          variant="outline"
-          className=" col-span-1 h-12 w-48 gap-1"
-        >
+        <Button size="default" variant="outline" className=" col-span-1 h-12 w-48 gap-1">
           <FileSearchIcon className="h-3.5 w-3.5" />
           <span className="xl:whitespace-nowrap">Track</span>
         </Button>

@@ -138,7 +138,7 @@ const TxInfoCard = () => {
                   variant="outline"
                   className="items-center align-middle h-6 gap-1 shadow-sm"
                 >
-                  beaverbuild
+                  unknown
                 </Badge>
               </span>
             </li>
