@@ -1,6 +1,12 @@
 'use client'
 
 import React, { useEffect } from 'react'
+import { ConfigProvider, DatePicker, TimePicker, Typography } from 'antd'
+import type { DatePickerProps } from 'antd'
+import en from 'antd/es/date-picker/locale/en_US'
+import enUS from 'antd/es/locale/en_US'
+import dayjs from 'dayjs'
+import buddhistEra from 'dayjs/plugin/buddhistEra'
 
 // ICONS
 import { FileSearchIcon, ArrowRight } from 'lucide-react'
@@ -36,11 +42,42 @@ import { Calendar } from '@/components/ui/calendar'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { Separator } from '../ui/separator'
 
+dayjs.extend(buddhistEra)
+
+const { Title } = Typography
+
+// Component level locale
+const buddhistLocale: typeof en = {
+  ...en,
+  lang: {
+    ...en.lang,
+    fieldDateFormat: 'BBBB-MM-DD',
+    fieldDateTimeFormat: 'BBBB-MM-DD HH:mm:ss',
+    yearFormat: 'BBBB',
+    cellYearFormat: 'BBBB',
+  },
+}
+
+// ConfigProvider level locale
+const globalBuddhistLocale: typeof enUS = {
+  ...enUS,
+  DatePicker: {
+    ...enUS.DatePicker!,
+    lang: buddhistLocale.lang,
+  },
+}
+
+const defaultValue = dayjs('2024-01-01')
+
 const InputCard = () => {
   const [input, setInput] = React.useState<string>('')
   const [chain, setChain] = React.useState<string>('')
   const [startDate, setStartDate] = React.useState<Date>()
   const [endDate, setEndDate] = React.useState<Date>()
+
+  const onChange: DatePickerProps['onChange'] = (_, dateStr) => {
+    console.log('onChange:', dateStr)
+  }
 
   useEffect(() => {
     console.log('Input:', input)
@@ -89,52 +126,23 @@ const InputCard = () => {
         <div className="flex mt-2 justify-end">
           <div className="flex gap-2 items-center">
             {/* START DATE */}
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant={'outline'}
-                  className={cn(
-                    'w-[240px] justify-start text-left font-normal',
-                    !startDate && 'text-muted-foreground'
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {startDate ? format(startDate, 'PPP') : <span>Select start date</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="single"
-                  selected={startDate}
-                  onSelect={setStartDate}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
+            <DatePicker
+              variant="outlined"
+              defaultValue={defaultValue}
+              showTime
+              locale={buddhistLocale}
+              onChange={onChange}
+            />
             <ArrowRight className="h-3.5 w-3.5" />
             {/* END DATE */}
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant={'outline'}
-                  className={cn(
-                    'w-[240px] justify-start text-left font-normal',
-                    !endDate && 'text-muted-foreground'
-                  )}
-                >
-                  <CalendarIcon className="mr-2 h-4 w-4" />
-                  {endDate ? format(endDate, 'PPP') : <span>Select end date</span>}
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto p-0" align="start">
-                <Calendar
-                  mode="single"
-                  selected={endDate}
-                  onSelect={setEndDate}
-                  initialFocus
-                />
-              </PopoverContent>
-            </Popover>
+            <DatePicker
+              className="border-slate-300 shadow-sm bg-red-200"
+              variant="outlined"
+              defaultValue={defaultValue}
+              showTime
+              locale={buddhistLocale}
+              onChange={onChange}
+            />
           </div>
         </div>
       </CardContent>

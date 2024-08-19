@@ -1,0 +1,186 @@
+[
+    {
+        "chain": "ETH",
+        "token": "Ether (ETH)",
+        "portfolioPercentage": "100.00%",
+        "price": "$2,677.22",
+        "amount": "49,504,615.4369",
+        "value": "$132,534,791,239.1"
+    },
+    {
+        "chain": "ETH",
+        "token": "Pikachu (PIKA)",
+        "portfolioPercentage": "<0.01%",
+        "price": "<$0.000001",
+        "amount": "7,112,095,738,234.37",
+        "value": "$116,183.2"
+    },
+    {
+        "chain": "ETH",
+        "token": "Catecoin (CATE)",
+        "portfolioPercentage": "<0.01%",
+        "price": "<$0.000001",
+        "amount": "30,000,000,000",
+        "value": "$5,950.68"
+    },
+    {
+        "chain": "ETH",
+        "token": "Tether USD (USDT)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.999469",
+        "amount": "4,933.8533",
+        "value": "$4,931.23"
+    },
+    {
+        "chain": "ETH",
+        "token": "STAKE (STAKE)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.122234",
+        "amount": "40,000",
+        "value": "$4,889.36"
+    },
+    {
+        "chain": "BSC",
+        "token": "Binance-Peg BSC-USD (BSC-USD)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.999912",
+        "amount": "3,500",
+        "value": "$3,499.69"
+    },
+    {
+        "chain": "ETH",
+        "token": "ethopt.io (OPT)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.03479",
+        "amount": "73,995.5162",
+        "value": "$2,574.34"
+    },
+    {
+        "chain": "ETH",
+        "token": "HEX (HEX)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.00131",
+        "amount": "555,555",
+        "value": "$727.93"
+    },
+    {
+        "chain": "BSC",
+        "token": "BNB Chain (BSC)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$537.6",
+        "amount": "1.0683",
+        "value": "$574.32"
+    },
+    {
+        "chain": "ETH",
+        "token": "Ethereum Yield (ETHY)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$3.21",
+        "amount": "100",
+        "value": "$320.78"
+    },
+    {
+        "chain": "ETH",
+        "token": "PointPay Crypto Banking Token V2 (PXP)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.041274",
+        "amount": "7,225",
+        "value": "$298.21"
+    },
+    {
+        "chain": "ETH",
+        "token": "Uniswap V2 (UNI-V2)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$167,135,217.78",
+        "amount": "0.00000154",
+        "value": "$258.16"
+    },
+    {
+        "chain": "ETH",
+        "token": "LCX (LCX)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.125915",
+        "amount": "2,020.0112",
+        "value": "$254.35"
+    },
+    {
+        "chain": "ETH",
+        "token": "Fiola (FLA)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.000349",
+        "amount": "666,666",
+        "value": "$232.53"
+    },
+    {
+        "chain": "BSC",
+        "token": "Binance-Peg Ethereum Token (ETH)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$2,680.86",
+        "amount": "0.0629",
+        "value": "$168.7"
+    },
+    {
+        "chain": "ETH",
+        "token": "Onooks (OOKS)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.413573",
+        "amount": "405.1515",
+        "value": "$167.56"
+    },
+    {
+        "chain": "ETH",
+        "token": "Aave Token (AAVE)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$110.26",
+        "amount": "1",
+        "value": "$110.26"
+    },
+    {
+        "chain": "ETH",
+        "token": "Polymath (POLY)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.061498",
+        "amount": "1,337",
+        "value": "$82.22"
+    },
+    {
+        "chain": "ETH",
+        "token": "DefiPulse Index (DPI)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$73.33",
+        "amount": "1",
+        "value": "$73.33"
+    },
+    {
+        "chain": "ETH",
+        "token": "Meter Governance mapped by Meter.io (EMTRG)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.511143",
+        "amount": "100",
+        "value": "$51.11"
+    },
+    {
+        "chain": "MATIC",
+        "token": "USD Coin (USDC)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.999595",
+        "amount": "29.66",
+        "value": "$29.65"
+    },
+    {
+        "chain": "ETH",
+        "token": "Graph Token (GRT)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$0.142659",
+        "amount": "200",
+        "value": "$28.53"
+    },
+    {
+        "chain": "ETH",
+        "token": "Wrapped Ether (WETH)",
+        "portfolioPercentage": "<0.01%",
+        "price": "$2,677.22",
+        "amount": "0.01",
+        "value": "$26.77"
+    }
+]

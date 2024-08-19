@@ -1,6 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import portfolio from '@/mocks/portfolio.json'
 import transactions from '@/mocks/transactions.json'
 
 import { File, ListFilter } from 'lucide-react'
@@ -32,15 +34,14 @@ import {
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-const TableCard = () => {
+const PortfolioTableCard = () => {
   return (
     <>
-      <Tabs defaultValue="week">
+      <Tabs defaultValue="portfolio">
         <div className="flex items-center">
           <TabsList>
-            <TabsTrigger value="week">Week</TabsTrigger>
-            <TabsTrigger value="month">Month</TabsTrigger>
-            <TabsTrigger value="year">Year</TabsTrigger>
+            <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
+            <TabsTrigger value="transactions">Transactions</TabsTrigger>
           </TabsList>
           <div className="ml-auto flex items-center gap-2">
             <DropdownMenu>
@@ -64,11 +65,54 @@ const TableCard = () => {
             </Button>
           </div>
         </div>
-        <TabsContent value="week">
+        <TabsContent value="portfolio">
           <Card x-chunk="dashboard-05-chunk-3">
             <CardHeader className="px-7">
-              <CardTitle>Recent Transactions</CardTitle>
-              <CardDescription>Recent transactions description</CardDescription>
+              <CardTitle>Porfolio</CardTitle>
+              <CardDescription>Portfolio description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Chain</TableHead>
+                    <TableHead>Token</TableHead>
+                    <TableHead className="hidden sm:table-cell">Portfolio %</TableHead>
+                    <TableHead className="hidden md:table-cell">Price</TableHead>
+                    <TableHead className="hidden md:table-cell">Amount</TableHead>
+                    <TableHead className="text-right">Value</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {portfolio.map((asset, index) => (
+                    <TableRow key={`${asset.chain}-${asset.token}`}>
+                      <TableCell>
+                        <div className="font-medium">{asset.chain}</div>
+                      </TableCell>
+                      <TableCell>{asset.token}</TableCell>
+                      <TableCell className="hidden sm:table-cell">
+                        {asset.portfolioPercentage}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {asset.price}
+                      </TableCell>
+                      <TableCell className="hidden md:table-cell">
+                        {asset.amount}
+                      </TableCell>
+                      <TableCell className="text-right">{asset.value}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="transactions">
+          <Card x-chunk="dashboard-05-chunk-3">
+            <CardHeader className="px-7">
+              <CardTitle>Transactions</CardTitle>
+              <CardDescription>Rencent transactions</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
@@ -83,10 +127,7 @@ const TableCard = () => {
                 </TableHeader>
                 <TableBody>
                   {transactions.map((transaction, index) => (
-                    <TableRow
-                      key={transaction.txnHash}
-                      className={index % 2 === 0 ? 'bg-accent' : ''}
-                    >
+                    <TableRow key={transaction.txnHash}>
                       <TableCell>
                         <div className="font-medium">
                           {transaction.txnHash.substring(0, 12)}...
@@ -122,4 +163,4 @@ const TableCard = () => {
   )
 }
 
-export default TableCard
+export default PortfolioTableCard
