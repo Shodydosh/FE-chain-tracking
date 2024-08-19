@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Check, X } from 'lucide-react'
 import {
@@ -16,6 +16,7 @@ import {
   getSortedRowModel,
   useReactTable,
   TableMeta,
+  PaginationState,
 } from '@tanstack/react-table'
 
 import { Button } from '@/components/ui/button'
@@ -48,7 +49,8 @@ import {
 import { File, ListFilter } from 'lucide-react'
 
 // Import the JSON data
-import transactions from '@/mocks/transactions.json'
+import { DataTablePagination } from './DataTablePagination'
+import transactions_json from '@/mocks/transactions.json'
 
 // Extend the Transaction type to include the `added` field
 export type Transaction = {
@@ -65,7 +67,7 @@ interface CustomTableMeta extends TableMeta<Transaction> {
   toggleAdd: (transaction: Transaction) => void
 }
 
-const initialTransactions = transactions.map((txn) => ({
+const initialTransactions = transactions_json.map((txn) => ({
   ...txn,
   added: false,
 }))
@@ -188,39 +190,58 @@ export const columns: ColumnDef<Transaction>[] = [
 ]
 
 const TxDataTable = () => {
-  const [transactionsData, setTransactionsData] =
-    useState<Transaction[]>(initialTransactions)
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
   const [isClient, setIsClient] = useState(false)
 
-  useEffect(() => {
-    setIsClient(true)
-  }, [])
+  const [data, setData] = useState<Transaction[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [search, setSearch] = useState('')
+  const [totalCount, setTotalCount] = useState(0)
+  const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
+
+  const pagination = useMemo(
+    () => ({
+      pageIndex,
+      pageSize,
+    }),
+    [pageIndex, pageSize]
+  )
 
   const table = useReactTable<Transaction>({
-    data: transactionsData,
+    data: data,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
+
+    manualSorting: true,
+    onSortingChange: setSorting,
+
+    manualPagination: true,
+    onPaginationChange: setPagination,
+
+    manualFiltering: true,
+    onGlobalFilterChange: setSearch,
+
+    pageCount: Math.ceil(totalCount / pageSize),
     state: {
       sorting,
+      pagination,
       columnFilters,
       columnVisibility,
       rowSelection,
     },
     meta: {
       toggleAdd: (transaction: Transaction) => {
-        console.log('🚀 ~ TxDataTable ~ transaction:', transaction)
-        setTransactionsData((current) =>
+        console.log('🚀 ~ TxDataTable ~ Transaction:', transaction)
+        setData((current) =>
           current.map((txn) =>
             txn.txnHash === transaction.txnHash ? { ...txn, added: !txn.added } : txn
           )
@@ -229,18 +250,52 @@ const TxDataTable = () => {
     } as CustomTableMeta, // Cast to CustomTableMeta
   })
 
-  // Filter the transactions to get only those that are added
-  const addedTransactions = transactionsData.filter((txn) => txn.added)
+  useEffect(() => {
+    setIsClient(true)
+    setTotalCount(table.getFilteredRowModel().rows.length)
+  }, [])
+  useEffect(() => {
+    const params = new URLSearchParams({
+      pageNumber: (pageIndex + 1).toString(),
+      pageSize: pageSize.toString(),
+      ...(sorting.length > 0 && {
+        sortBy: sorting[0].id,
+        sortOrder: sorting[0].desc ? 'desc' : 'asc',
+      }),
+    })
+
+    // Simulate fetching data from JSON
+    setIsLoading(true)
+
+    const filteredData = transactions_json
+
+    // Sort the data
+    const sortedData = filteredData
+
+    // Paginate the data
+    const paginatedData = sortedData.slice(
+      pageIndex * pageSize,
+      (pageIndex + 1) * pageSize
+    )
+
+    setTimeout(() => {
+      setData(paginatedData)
+      setTotalCount(filteredData.length)
+      setIsLoading(false)
+    }, 500) // Simulate network delay
+  }, [sorting])
+  //pageIndex, pageSize,
+
+  // Filter the transactions_json to get only those that are added
+  const addedTransactions = data.filter((txn) => txn.added)
 
   return (
     <div className="w-full">
       <div className="flex justify-between items-center py-4">
         <Input
-          placeholder="Filter by type..."
-          value={(table.getColumn('type')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('type')?.setFilterValue(event.target.value)
-          }
+          placeholder="Filter by ..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           className="max-w-sm"
         />
         <div className="flex gap-1">
@@ -317,7 +372,7 @@ const TxDataTable = () => {
           {addedTransactions.length} of {table.getFilteredRowModel().rows.length}{' '}
           transaction(s) selected.
         </div>
-        <div className="space-x-2">
+        {/* <div className="space-x-2">
           <Button
             variant="outline"
             size="sm"
@@ -334,6 +389,9 @@ const TxDataTable = () => {
           >
             Next
           </Button>
+        </div> */}
+        <div className="py-4">
+          <DataTablePagination table={table} totalCount={totalCount} />
         </div>
       </div>
       {isClient && (
@@ -353,3 +411,6 @@ const TxDataTable = () => {
 }
 
 export default TxDataTable
+// TODO: fix lỗi pagination
+// TODO: fix lỗi filter
+// TODO: fix lỗi add to addedTransactions
