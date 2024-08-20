@@ -220,6 +220,7 @@ const TxDataTable = () => {
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
 
     manualSorting: true,
     onSortingChange: setSorting,
@@ -283,8 +284,7 @@ const TxDataTable = () => {
       setTotalCount(filteredData.length)
       setIsLoading(false)
     }, 500) // Simulate network delay
-  }, [sorting])
-  //pageIndex, pageSize,
+  }, [sorting, pageIndex, pageSize])
 
   // Filter the transactions_json to get only those that are added
   const addedTransactions = data.filter((txn) => txn.added)
@@ -372,24 +372,6 @@ const TxDataTable = () => {
           {addedTransactions.length} of {table.getFilteredRowModel().rows.length}{' '}
           transaction(s) selected.
         </div>
-        {/* <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.previousPage()}
-            disabled={!table.getCanPreviousPage()}
-          >
-            Previous
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => table.nextPage()}
-            disabled={!table.getCanNextPage()}
-          >
-            Next
-          </Button>
-        </div> */}
         <div className="py-4">
           <DataTablePagination table={table} totalCount={totalCount} />
         </div>
@@ -411,6 +393,6 @@ const TxDataTable = () => {
 }
 
 export default TxDataTable
-// TODO: fix lỗi pagination
+//? OK: fix lỗi pagination
 // TODO: fix lỗi filter
 // TODO: fix lỗi add to addedTransactions
