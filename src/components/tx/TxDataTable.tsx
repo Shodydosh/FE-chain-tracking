@@ -235,6 +235,7 @@ const TxDataTable = () => {
     manualPagination: true,
     onPaginationChange: setPagination,
 
+    enableGlobalFilter: true,
     manualFiltering: true,
     onGlobalFilterChange: setSearch,
 
