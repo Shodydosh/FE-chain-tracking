@@ -1,5 +1,8 @@
 import React from 'react'
+import { useState } from 'react'
 import TxDataTable from '@/components/tx/TxDataTable'
+import { Transaction } from '@/types/transaction.interface'
+import { TransactionsList } from '@/types/transaction.interface'
 
 import {
   Card,
@@ -9,7 +12,13 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 
-const TxDataTableCard = () => {
+interface TxDataTableCardProps {
+  onUpdate: (txList: TransactionsList) => void
+}
+
+const TxDataTableCard: React.FC<TxDataTableCardProps> = ({ onUpdate }) => {
+  const [txList, setTxList] = useState<TransactionsList>([])
+
   return (
     <>
       <Card x-chunk="dashboard-05-chunk-3">
@@ -18,7 +27,7 @@ const TxDataTableCard = () => {
           <CardDescription>Recent transactions description</CardDescription>
         </CardHeader>
         <CardContent>
-          <TxDataTable />
+          <TxDataTable onUpdate={onUpdate} />
         </CardContent>
       </Card>
     </>

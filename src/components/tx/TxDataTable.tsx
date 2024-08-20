@@ -1,7 +1,7 @@
 'use client'
 
 import * as React from 'react'
-import useDebounce from '@/app/lib/useDebounce'
+import useDebounce from '@/lib/useDebounce'
 import { useEffect, useState, useMemo } from 'react'
 import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Check, X } from 'lucide-react'
@@ -52,16 +52,7 @@ import { File, ListFilter } from 'lucide-react'
 // Import the JSON data
 import { DataTablePagination } from './DataTablePagination'
 import transactions_json from '@/mocks/transactions.json'
-
-// Extend the Transaction type to include the `added` field
-export type Transaction = {
-  txnHash: string
-  type: string
-  status: string
-  date: string
-  amount: string
-  added?: boolean // New field
-}
+import { Transaction, TransactionsList } from '@/types/transaction.interface'
 
 // Define a custom TableMeta type
 interface CustomTableMeta extends TableMeta<Transaction> {
@@ -73,14 +64,18 @@ const initialTransactions = transactions_json.map((txn) => ({
   added: false,
 }))
 
-const TxDataTable = () => {
+interface TxDataTableProps {
+  onUpdate: (txList: TransactionsList) => void
+}
+
+const TxDataTable: React.FC<TxDataTableProps> = ({ onUpdate }) => {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = useState({})
   const [isClient, setIsClient] = useState(false)
 
-  const [data, setData] = useState<Transaction[]>([])
+  const [data, setData] = useState<TransactionsList>([])
   const [isLoading, setIsLoading] = useState(false)
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebounce(search, 500) // Debounce the search
@@ -89,7 +84,7 @@ const TxDataTable = () => {
     pageIndex: 0,
     pageSize: 10,
   })
-  const [addedTransactions, setAddedTransactions] = useState<Transaction[]>([])
+  const [addedTransactions, setAddedTransactions] = useState<TransactionsList>([])
   const pagination = useMemo(
     () => ({
       pageIndex,
@@ -269,11 +264,8 @@ const TxDataTable = () => {
     setTotalCount(table.getFilteredRowModel().rows.length)
   }, [])
   useEffect(() => {
-    // addedTransactions.forEach((element) => {
-    //   console.log('🚀 ~ useEffect ~ added:', element)
-    // })
-    console.log('_________________________________')
     console.log(addedTransactions.length)
+    onUpdate(addedTransactions)
   }, [addedTransactions])
   useEffect(() => {
     const params = new URLSearchParams({

@@ -1,5 +1,6 @@
 import React from 'react'
 import TxDataVisualize from '../tx/TxDataVisualize'
+import { TransactionsList } from '@/types/transaction.interface'
 
 import {
   Card,
@@ -9,7 +10,12 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 
-const TxDataTableCard = () => {
+interface TxDataVisualizeCardProps {
+  txList: TransactionsList
+}
+
+const TxDataVisualizeCard: React.FC<TxDataVisualizeCardProps> = ({ txList }) => {
+  console.log(txList)
   return (
     <>
       <Card x-chunk="dashboard-05-chunk-3">
@@ -18,11 +24,11 @@ const TxDataTableCard = () => {
           <CardDescription>Story based on selected transactions</CardDescription>
         </CardHeader>
         <CardContent>
-          <TxDataVisualize />
+          <TxDataVisualize txList={txList} />
         </CardContent>
       </Card>
     </>
   )
 }
 
-export default TxDataTableCard
+export default TxDataVisualizeCard
