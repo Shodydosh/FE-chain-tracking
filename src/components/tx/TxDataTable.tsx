@@ -72,123 +72,6 @@ const initialTransactions = transactions_json.map((txn) => ({
   added: false,
 }))
 
-export const columns: ColumnDef<Transaction>[] = [
-  {
-    id: 'add',
-    enableHiding: false,
-    cell: ({ row, table }) => {
-      const transaction = row.original
-      const isAdded = transaction.added
-
-      return (
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <div>
-                {!isAdded ? (
-                  <Button
-                    className="w-10"
-                    variant="outline"
-                    onClick={() =>
-                      (table.options.meta as CustomTableMeta).toggleAdd(transaction)
-                    }
-                  >
-                    +
-                  </Button>
-                ) : (
-                  <Button
-                    className="w-10"
-                    variant="default"
-                    onClick={() =>
-                      (table.options.meta as CustomTableMeta).toggleAdd(transaction)
-                    }
-                  >
-                    -
-                  </Button>
-                )}
-              </div>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>{isAdded ? 'Remove from story' : 'Add to story'}</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-      )
-    },
-  },
-  {
-    accessorKey: 'txnHash',
-    header: 'Transaction Hash',
-    cell: ({ row }) => <div className="truncate max-w-xs">{row.getValue('txnHash')}</div>,
-  },
-  {
-    accessorKey: 'type',
-    header: 'Type',
-    cell: ({ row }) => <Badge variant="outline">{row.getValue('type') as string}</Badge>,
-  },
-  {
-    accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => {
-      const status = row.getValue('status') as string
-      const isConfirmed = status.toLowerCase() === 'confirmed'
-
-      return (
-        <Badge
-          className={`gap-1 capitalize ${isConfirmed ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500'}`}
-          variant="outline"
-        >
-          {isConfirmed ? (
-            <Check className="h-3.5 w-3.5" />
-          ) : (
-            <X className="h-3.5 w-3.5" />
-          )}
-          {status}
-        </Badge>
-      )
-    },
-  },
-  {
-    accessorKey: 'date',
-    header: 'Date',
-  },
-  {
-    accessorKey: 'amount',
-    header: () => <div className="text-right">Amount</div>,
-    cell: ({ row }) => (
-      <div className="text-right font-medium">{row.getValue('amount')}</div>
-    ),
-  },
-  {
-    id: 'actions',
-    enableHiding: false,
-    cell: ({ row }) => {
-      const transaction = row.original
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(transaction.txnHash)}
-            >
-              Copy transaction hash
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    },
-  },
-]
-
 const TxDataTable = () => {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -204,7 +87,7 @@ const TxDataTable = () => {
     pageIndex: 0,
     pageSize: 10,
   })
-
+  const [addedTransactions, setAddedTransactions] = useState<Transaction[]>([])
   const pagination = useMemo(
     () => ({
       pageIndex,
@@ -212,6 +95,128 @@ const TxDataTable = () => {
     }),
     [pageIndex, pageSize]
   )
+  const columns: ColumnDef<Transaction>[] = [
+    {
+      id: 'add',
+      enableHiding: false,
+      cell: ({ row, table }) => {
+        const transaction = row.original
+        const isAdded = addedTransactions.some(
+          (addedTxn: Transaction) => addedTxn.txnHash === transaction.txnHash
+        )
+
+        return (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div>
+                  {!isAdded ? (
+                    <Button
+                      className="w-10"
+                      variant="outline"
+                      onClick={() =>
+                        (table.options.meta as CustomTableMeta).toggleAdd(transaction)
+                      }
+                    >
+                      +
+                    </Button>
+                  ) : (
+                    <Button
+                      className="w-10"
+                      variant="default"
+                      onClick={() =>
+                        (table.options.meta as CustomTableMeta).toggleAdd(transaction)
+                      }
+                    >
+                      -
+                    </Button>
+                  )}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{isAdded ? 'Remove from story' : 'Add to story'}</p>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )
+      },
+    },
+    {
+      accessorKey: 'txnHash',
+      header: 'Transaction Hash',
+      cell: ({ row }) => (
+        <div className="truncate max-w-xs">{row.getValue('txnHash')}</div>
+      ),
+    },
+    {
+      accessorKey: 'type',
+      header: 'Type',
+      cell: ({ row }) => (
+        <Badge variant="outline">{row.getValue('type') as string}</Badge>
+      ),
+    },
+    {
+      accessorKey: 'status',
+      header: 'Status',
+      cell: ({ row }) => {
+        const status = row.getValue('status') as string
+        const isConfirmed = status.toLowerCase() === 'confirmed'
+
+        return (
+          <Badge
+            className={`gap-1 capitalize ${isConfirmed ? 'border-green-500 text-green-500' : 'border-red-500 text-red-500'}`}
+            variant="outline"
+          >
+            {isConfirmed ? (
+              <Check className="h-3.5 w-3.5" />
+            ) : (
+              <X className="h-3.5 w-3.5" />
+            )}
+            {status}
+          </Badge>
+        )
+      },
+    },
+    {
+      accessorKey: 'date',
+      header: 'Date',
+    },
+    {
+      accessorKey: 'amount',
+      header: () => <div className="text-right">Amount</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-medium">{row.getValue('amount')}</div>
+      ),
+    },
+    {
+      id: 'actions',
+      enableHiding: false,
+      cell: ({ row }) => {
+        const transaction = row.original
+
+        return (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="h-8 w-8 p-0">
+                <span className="sr-only">Open menu</span>
+                <DotsHorizontalIcon className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuLabel>Actions</DropdownMenuLabel>
+              <DropdownMenuItem
+                onClick={() => navigator.clipboard.writeText(transaction.txnHash)}
+              >
+                Copy transaction hash
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>View details</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        )
+      },
+    },
+  ]
 
   const table = useReactTable<Transaction>({
     data: data,
@@ -241,12 +246,16 @@ const TxDataTable = () => {
     },
     meta: {
       toggleAdd: (transaction: Transaction) => {
-        console.log('🚀 ~ TxDataTable ~ Transaction:', transaction)
-        setData((current) =>
-          current.map((txn) =>
-            txn.txnHash === transaction.txnHash ? { ...txn, added: !txn.added } : txn
-          )
-        )
+        setAddedTransactions((current) => {
+          const exists = current.some((txn) => txn.txnHash === transaction.txnHash)
+          if (exists) {
+            // Remove the transaction if it exists
+            return current.filter((txn) => txn.txnHash !== transaction.txnHash)
+          } else {
+            // Add the transaction if it doesn't exist
+            return [...current, { ...transaction, added: true }]
+          }
+        })
       },
     } as CustomTableMeta, // Cast to CustomTableMeta
   })
@@ -255,6 +264,13 @@ const TxDataTable = () => {
     setIsClient(true)
     setTotalCount(table.getFilteredRowModel().rows.length)
   }, [])
+  useEffect(() => {
+    // addedTransactions.forEach((element) => {
+    //   console.log('🚀 ~ useEffect ~ added:', element)
+    // })
+    console.log('_________________________________')
+    console.log(addedTransactions.length)
+  }, [addedTransactions])
   useEffect(() => {
     const params = new URLSearchParams({
       pageNumber: (pageIndex + 1).toString(),
@@ -285,9 +301,6 @@ const TxDataTable = () => {
       setIsLoading(false)
     }, 500) // Simulate network delay
   }, [sorting, pageIndex, pageSize])
-
-  // Filter the transactions_json to get only those that are added
-  const addedTransactions = data.filter((txn) => txn.added)
 
   return (
     <div className="w-full">
