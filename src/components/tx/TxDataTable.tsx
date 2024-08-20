@@ -1,6 +1,7 @@
 'use client'
 
 import * as React from 'react'
+import useDebounce from '@/app/lib/useDebounce'
 import { useEffect, useState, useMemo } from 'react'
 import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
 import { Check, X } from 'lucide-react'
@@ -82,6 +83,7 @@ const TxDataTable = () => {
   const [data, setData] = useState<Transaction[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [search, setSearch] = useState('')
+  const debouncedSearch = useDebounce(search, 500) // Debounce the search
   const [totalCount, setTotalCount] = useState(0)
   const [{ pageIndex, pageSize }, setPagination] = React.useState<PaginationState>({
     pageIndex: 0,
@@ -243,6 +245,7 @@ const TxDataTable = () => {
       columnFilters,
       columnVisibility,
       rowSelection,
+      globalFilter: search,
     },
     meta: {
       toggleAdd: (transaction: Transaction) => {
@@ -273,6 +276,7 @@ const TxDataTable = () => {
   }, [addedTransactions])
   useEffect(() => {
     const params = new URLSearchParams({
+      search: debouncedSearch,
       pageNumber: (pageIndex + 1).toString(),
       pageSize: pageSize.toString(),
       ...(sorting.length > 0 && {
@@ -281,12 +285,9 @@ const TxDataTable = () => {
       }),
     })
 
-    // Simulate fetching data from JSON
+    console.log('🚩🚩' + params.toString())
     setIsLoading(true)
-
     const filteredData = transactions_json
-
-    // Sort the data
     const sortedData = filteredData
 
     // Paginate the data
@@ -300,7 +301,10 @@ const TxDataTable = () => {
       setTotalCount(filteredData.length)
       setIsLoading(false)
     }, 500) // Simulate network delay
-  }, [sorting, pageIndex, pageSize])
+  }, [debouncedSearch, sorting, pageIndex, pageSize])
+  useEffect(() => {
+    console.log('SEARCH: ' + search)
+  }, [search])
 
   return (
     <div className="w-full">
@@ -406,6 +410,4 @@ const TxDataTable = () => {
 }
 
 export default TxDataTable
-//? OK: fix lỗi pagination
 // TODO: fix lỗi filter
-// TODO: fix lỗi add to addedTransactions
