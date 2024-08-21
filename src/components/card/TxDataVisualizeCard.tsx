@@ -1,5 +1,5 @@
 import React from 'react'
-import TxDataVisualize from '../tx/TxDataVisualize'
+import TxDataVisualize from '../stories/TxDataVisualize'
 import { TransactionsList } from '@/types/transaction.interface'
 
 import {

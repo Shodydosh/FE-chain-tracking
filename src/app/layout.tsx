@@ -3,7 +3,12 @@ import { Inter } from 'next/font/google'
 import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { ConfigProvider } from 'antd'
+import { createTheme, MantineProvider } from '@mantine/core'
 import './globals.css'
+
+const theme = createTheme({
+  /** Your theme override here */
+})
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -20,39 +25,41 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ConfigProvider
-          theme={{
-            components: {
-              DatePicker: {
-                // colorPrimary: 'black',
-                colorPrimary: 'grey',
-                hoverBorderColor: 'black',
-                activeBorderColor: 'black',
-                cellRangeBorderColor: 'black',
-                cellHoverWithRangeBg: 'black',
-                cellActiveWithRangeBg: 'black',
-                algorithm: true, // Enable algorithm
+        <MantineProvider theme={theme} defaultColorScheme="light">
+          <ConfigProvider
+            theme={{
+              components: {
+                DatePicker: {
+                  // colorPrimary: 'black',
+                  colorPrimary: 'grey',
+                  hoverBorderColor: 'black',
+                  activeBorderColor: 'black',
+                  cellRangeBorderColor: 'black',
+                  cellHoverWithRangeBg: 'black',
+                  cellActiveWithRangeBg: 'black',
+                  algorithm: true, // Enable algorithm
+                },
+                Button: {
+                  colorPrimary: '#1677ff', // Brand color
+                  colorPrimaryHover: '#4096ff', // Hover state color
+                  colorPrimaryActive: '#0958d9', // Active state color
+                  colorPrimaryBorder: '#91caff', // Border color
+                  colorLink: '#1677ff', // Link color
+                  colorLinkHover: '#69b1ff', // Link hover color
+                  colorLinkActive: '#0958d9', // Link active color
+                  defaultActiveColor: 'black', // Add this if needed, otherwise remove
+                  defaultActiveBorderColor: 'black', // Add this if needed, otherwise remove
+                  defaultHoverBorderColor: 'black', // Add this if needed, otherwise remove
+                  defaultHoverColor: 'black', // Add this if needed, otherwise remove
+                },
               },
-              Button: {
-                colorPrimary: '#1677ff', // Brand color
-                colorPrimaryHover: '#4096ff', // Hover state color
-                colorPrimaryActive: '#0958d9', // Active state color
-                colorPrimaryBorder: '#91caff', // Border color
-                colorLink: '#1677ff', // Link color
-                colorLinkHover: '#69b1ff', // Link hover color
-                colorLinkActive: '#0958d9', // Link active color
-                defaultActiveColor: 'black', // Add this if needed, otherwise remove
-                defaultActiveBorderColor: 'black', // Add this if needed, otherwise remove
-                defaultHoverBorderColor: 'black', // Add this if needed, otherwise remove
-                defaultHoverColor: 'black', // Add this if needed, otherwise remove
-              },
-            },
-          }}
-        >
-          <AntdRegistry>
-            <TooltipProvider>{children}</TooltipProvider>
-          </AntdRegistry>
-        </ConfigProvider>
+            }}
+          >
+            <AntdRegistry>
+              <TooltipProvider>{children}</TooltipProvider>
+            </AntdRegistry>
+          </ConfigProvider>
+        </MantineProvider>
       </body>
     </html>
   )
