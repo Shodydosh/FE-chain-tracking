@@ -25,6 +25,7 @@ interface Node {
   id: string
   position: { x: number; y: number }
   data: { label: string }
+  style: any
 }
 
 interface Edge {
@@ -145,6 +146,13 @@ const transformDataToNodesAndEdges = (data: Transaction[]) => {
     Other: 200,
   }
 
+  // Define colors for different networks
+  const nodeColors: { [key: string]: string } = {
+    'Ethereum Mainnet': '#ffcc00', // Yellow
+    'Polygon Network': '#00ccff', // Blue
+    Other: '#cccccc', // Grey
+  }
+
   data.forEach((transaction, index) => {
     const senderId = transaction.details.sender
     const receiverId = transaction.details.receiver
@@ -162,12 +170,22 @@ const transformDataToNodesAndEdges = (data: Transaction[]) => {
         ? rowPositions[receiverName]
         : rowPositions['Other']
 
+    // Determine color for sender
+    const senderColor =
+      nodeColors[senderName] !== undefined ? nodeColors[senderName] : nodeColors['Other']
+    // Determine color for receiver
+    const receiverColor =
+      nodeColors[receiverName] !== undefined
+        ? nodeColors[receiverName]
+        : nodeColors['Other']
+
     if (!nodeMap[senderId]) {
       nodeMap[senderId] = `node-${Object.keys(nodeMap).length}`
       nodes.push({
         id: nodeMap[senderId],
         position: { x: 100 * index, y: senderRow },
         data: { label: senderName },
+        style: { backgroundColor: senderColor },
       })
     }
 
@@ -178,6 +196,7 @@ const transformDataToNodesAndEdges = (data: Transaction[]) => {
           id: nodeMap[receiverId],
           position: { x: 0, y: receiverRow }, //TODO: TEMP
           data: { label: receiverName },
+          style: { backgroundColor: receiverColor },
         })
       } else {
         nodeMap[receiverId] = `node-${Object.keys(nodeMap).length}`
@@ -185,6 +204,7 @@ const transformDataToNodesAndEdges = (data: Transaction[]) => {
           id: nodeMap[receiverId],
           position: { x: 200 * (index - 3), y: receiverRow }, //TODO: TEMP
           data: { label: receiverName },
+          style: { backgroundColor: receiverColor },
         })
       }
     }
@@ -198,7 +218,6 @@ const transformDataToNodesAndEdges = (data: Transaction[]) => {
 
   return { nodes, edges }
 }
-
 const Flow = () => {
   const [nodes, setNodes] = useState<Node[]>([])
   const [edges, setEdges] = useState<Edge[]>([])
@@ -217,7 +236,10 @@ const Flow = () => {
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
       <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-3">
-        <div style={{ height: 800 }}>
+        <div
+          className=" p-2 border-black rounded-md border-dotted border-2 shadow-lg"
+          style={{ height: 800 }}
+        >
           <ReactFlow nodes={nodes} edges={edges} onConnect={onConnect} fitView>
             <Background />
             <Controls />
