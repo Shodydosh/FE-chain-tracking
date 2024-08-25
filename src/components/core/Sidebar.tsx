@@ -1,12 +1,16 @@
-import * as React from "react";
-import Link from "next/link";
-import { Home, ScanSearch, ChartPie, Package2, Settings } from "lucide-react";
-
+import * as React from 'react'
+import Link from 'next/link'
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+  Home,
+  ScanSearch,
+  ChartPie,
+  Package2,
+  Settings,
+  ChartNetwork,
+  ScrollText,
+} from 'lucide-react'
+
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 
 const Sidebar: React.FC = () => {
   return (
@@ -46,6 +50,30 @@ const Sidebar: React.FC = () => {
         <Tooltip>
           <TooltipTrigger asChild>
             <Link
+              href="/graph"
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+            >
+              <ChartNetwork className="h-5 w-5" />
+              <span className="sr-only">Graph</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">Graph</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              href="/stories"
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
+            >
+              <ScrollText className="h-5 w-5" />
+              <span className="sr-only">Stories</span>
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right">Stories</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
               href="#"
               className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
             >
@@ -73,7 +101,7 @@ const Sidebar: React.FC = () => {
         </Tooltip>
       </nav>
     </aside>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

@@ -1,236 +1,88 @@
 'use client'
-import React, { useState, useEffect, useCallback } from 'react'
-import ReactFlow, {
+import React, { useCallback } from 'react'
+import {
+  ReactFlow,
   Background,
-  Connection,
-  Controls,
-  ReactFlowProvider,
+  BackgroundVariant,
+  useEdgesState,
   addEdge,
-} from 'react-flow-renderer'
+  getIncomers,
+  getOutgoers,
+  getConnectedEdges,
+  Node,
+  Edge,
+  Connection,
+} from '@xyflow/react'
+import { useNodesState } from '@xyflow/react'
+import '@xyflow/react/dist/style.css'
 
-interface Transaction {
-  event: string
-  time: string
-  details: {
-    sender: string
-    receiver: string
-    amount: number
-    token: string
-    sender_name: string
-    receiver_name: string
-  }
+interface NodeData {
+  label: string
+  [key: string]: unknown
 }
 
-interface Node {
-  id: string
-  position: { x: number; y: number }
-  data: { label: string }
-  style: any
-}
-
-interface Edge {
-  id: string
-  source: string
-  target: string
-}
-
-// Transform transaction data into nodes and edges
-const transactionData: Transaction[] = [
+const initialNodes: Node<NodeData>[] = [
   {
-    event: '',
-    time: '8-5-2022T05:23',
-    details: {
-      sender: '0x0b95993a39a363d99280ac950f5e4536ab5c5566',
-      sender_name: 'Ethereum Mainnet',
-      amount: 6000000,
-      token: 'ETH',
-      receiver: '0x4d9ff50ef4da947364bb9650892b2554e7be5e2b',
-      receiver_name: 'Polygon Network',
-    },
+    id: '1',
+    type: 'input',
+    data: { label: 'Start here...' },
+    position: { x: -150, y: 0 },
   },
   {
-    event: '',
-    time: '8-5-2022T07:44',
-    details: {
-      sender: '0x4d9ff50ef4da947364bb9650892b2554e7be5e2b',
-      sender_name: 'Polygon Network',
-      amount: 600,
-      token: 'ETH',
-      receiver: '0x00000000219ab540356cBB839Cbe05303d7705Fa',
-      receiver_name: 'Ethereum Sepolia',
-    },
+    id: '2',
+    type: 'input',
+    data: { label: '...or here!' },
+    position: { x: 150, y: 0 },
   },
+  { id: '3', data: { label: 'Delete me.' }, position: { x: 0, y: 100 } },
+  { id: '4', data: { label: 'Then me!' }, position: { x: 0, y: 200 } },
   {
-    event: '',
-    time: '8-5-2022T07:45',
-    details: {
-      sender: '0x4d9ff50ef4da947364bb9650892b2554e7be5e2b',
-      sender_name: 'Polygon Network',
-      amount: 344,
-      token: 'ETH',
-      receiver: '0x00000000219ab540356cBB839Cbe05303d623545',
-      receiver_name: 'Alice',
-    },
-  },
-  {
-    event: '',
-    time: '8-5-2022T12:25',
-    details: {
-      sender: '0x4d9ff50ef4da947364bb9650892b2554e7be5e2b',
-      sender_name: 'Polygon Network',
-      amount: 243,
-      token: 'ETH',
-      receiver: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
-      receiver_name: 'Tung',
-    },
-  },
-  {
-    event: '',
-    time: '8-5-2022T13:08',
-    details: {
-      sender: '0x4d9ff50ef4da947364bb9650892b2554e7be5e2b',
-      sender_name: 'Polygon Network',
-      amount: 654,
-      token: 'ETH',
-      receiver: '0xDA9dfA130Df4dE4673b89022EE50ff26f6EA73Cf',
-      receiver_name: 'Avalanche Network',
-    },
-  },
-  {
-    event: '',
-    time: '8-5-2022T13:16',
-    details: {
-      sender: '0x4d9ff50ef4da947364bb9650892b2554e7be5e2b',
-      sender_name: 'Polygon Network',
-      amount: 341,
-      token: 'ETH',
-      receiver: '0xjuwhg94gb54uouobgu4h5th45u325324532452',
-      receiver_name: 'Phu',
-    },
-  },
-  {
-    event: '',
-    time: '8-5-2022T13:16',
-    details: {
-      sender: '0x4d9ff50ef4da947364bb9650892b2554e7be5e2b',
-      sender_name: 'Polygon Network',
-      amount: 134,
-      token: 'ETH',
-      receiver: '0x345234532452345234523486734528743205gf',
-      receiver_name: 'Bob',
-    },
-  },
-  {
-    event: '',
-    time: '8-5-2022T13:18',
-    details: {
-      sender: '0x4d9ff50ef4da947364bb9650892b2554e7be5e2b',
-      sender_name: 'Polygon Network',
-      amount: 32,
-      token: 'ETH',
-      receiver: '0x345234532452345234523486734528743205gf',
-      receiver_name: 'Bob',
-    },
+    id: '5',
+    type: 'output',
+    data: { label: 'End here!' },
+    position: { x: 0, y: 300 },
   },
 ]
 
-const transformDataToNodesAndEdges = (data: Transaction[]) => {
-  const nodes: Node[] = []
-  const edges: Edge[] = []
-  const nodeMap: { [key: string]: string } = {}
+const initialEdges: Edge[] = [
+  { id: '1->3', source: '1', target: '3' },
+  { id: '2->3', source: '2', target: '3' },
+  { id: '3->4', source: '3', target: '4' },
+  { id: '4->5', source: '4', target: '5' },
+]
 
-  // Define row positions
-  const rowPositions: { [key: string]: number } = {
-    'Ethereum Mainnet': 0,
-    'Polygon Network': 100,
-    Other: 200,
-  }
-
-  // Define colors for different networks
-  const nodeColors: { [key: string]: string } = {
-    'Ethereum Mainnet': '#ffcc00', // Yellow
-    'Polygon Network': '#00ccff', // Blue
-    Other: '#cccccc', // Grey
-  }
-
-  data.forEach((transaction, index) => {
-    const senderId = transaction.details.sender
-    const receiverId = transaction.details.receiver
-    const senderName = transaction.details.sender_name
-    const receiverName = transaction.details.receiver_name
-
-    // Determine row for sender
-    const senderRow =
-      rowPositions[senderName] !== undefined
-        ? rowPositions[senderName]
-        : rowPositions['Other']
-    // Determine row for receiver
-    const receiverRow =
-      rowPositions[receiverName] !== undefined
-        ? rowPositions[receiverName]
-        : rowPositions['Other']
-
-    // Determine color for sender
-    const senderColor =
-      nodeColors[senderName] !== undefined ? nodeColors[senderName] : nodeColors['Other']
-    // Determine color for receiver
-    const receiverColor =
-      nodeColors[receiverName] !== undefined
-        ? nodeColors[receiverName]
-        : nodeColors['Other']
-
-    if (!nodeMap[senderId]) {
-      nodeMap[senderId] = `node-${Object.keys(nodeMap).length}`
-      nodes.push({
-        id: nodeMap[senderId],
-        position: { x: 100 * index, y: senderRow },
-        data: { label: senderName },
-        style: { backgroundColor: senderColor },
-      })
-    }
-
-    if (!nodeMap[receiverId]) {
-      if (senderName === 'Ethereum Mainnet') {
-        nodeMap[receiverId] = `node-${Object.keys(nodeMap).length}`
-        nodes.push({
-          id: nodeMap[receiverId],
-          position: { x: 0, y: receiverRow }, //TODO: TEMP
-          data: { label: receiverName },
-          style: { backgroundColor: receiverColor },
-        })
-      } else {
-        nodeMap[receiverId] = `node-${Object.keys(nodeMap).length}`
-        nodes.push({
-          id: nodeMap[receiverId],
-          position: { x: 200 * (index - 3), y: receiverRow }, //TODO: TEMP
-          data: { label: receiverName },
-          style: { backgroundColor: receiverColor },
-        })
-      }
-    }
-
-    edges.push({
-      id: `edge-${nodeMap[senderId]}-${nodeMap[receiverId]}-${index}`, // Ensure unique edge ID
-      source: nodeMap[senderId],
-      target: nodeMap[receiverId],
-    })
-  })
-
-  return { nodes, edges }
-}
-const Flow = () => {
-  const [nodes, setNodes] = useState<Node[]>([])
-  const [edges, setEdges] = useState<Edge[]>([])
-
-  useEffect(() => {
-    const { nodes, edges } = transformDataToNodesAndEdges(transactionData)
-    setNodes(nodes)
-    setEdges(edges)
-  }, [])
+export default function Flow() {
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges]
+    (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
+    []
+  )
+
+  const onNodesDelete = useCallback(
+    (deleted: Node<NodeData>[]) => {
+      setEdges((eds) =>
+        deleted.reduce((acc: Edge[], node: Node<NodeData>) => {
+          const incomers = getIncomers(node, nodes, edges)
+          const outgoers = getOutgoers(node, nodes, edges)
+          const connectedEdges = getConnectedEdges([node], edges)
+
+          const remainingEdges = acc.filter((edge) => !connectedEdges.includes(edge))
+
+          const createdEdges = incomers.flatMap(({ id: source }) =>
+            outgoers.map(({ id: target }) => ({
+              id: `${source}->${target}`,
+              source,
+              target,
+            }))
+          )
+
+          return [...remainingEdges, ...createdEdges]
+        }, edges)
+      )
+    },
+    [nodes, edges]
   )
 
   return (
@@ -240,18 +92,20 @@ const Flow = () => {
           className=" p-2 border-black rounded-md border-dotted border-2 shadow-lg"
           style={{ height: 800 }}
         >
-          <ReactFlow nodes={nodes} edges={edges} onConnect={onConnect} fitView>
-            <Background />
-            <Controls />
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onNodesDelete={onNodesDelete}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            fitView
+            attributionPosition="top-right"
+          >
+            <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           </ReactFlow>
         </div>
       </div>
     </main>
   )
 }
-
-export default () => (
-  <ReactFlowProvider>
-    <Flow />
-  </ReactFlowProvider>
-)

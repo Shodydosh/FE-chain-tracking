@@ -76,7 +76,7 @@ const TxDataTable: React.FC<TxDataTableProps> = ({ onUpdate }) => {
   const [isClient, setIsClient] = useState(false)
 
   const [data, setData] = useState<TransactionsList>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false) //TODO: skeleton loading
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebounce(search, 500) // Debounce the search
   const [totalCount, setTotalCount] = useState(0)
