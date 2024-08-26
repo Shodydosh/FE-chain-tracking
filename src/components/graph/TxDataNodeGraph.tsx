@@ -1,5 +1,5 @@
 'use client'
-import React, { useCallback } from 'react'
+import React, { useState, useCallback, MouseEvent } from 'react'
 import {
   ReactFlow,
   Background,
@@ -35,12 +35,23 @@ const nodeTypes: NodeTypes = {
   redAddress: RedNode,
 }
 
+const nodeClassName = (node: NodeData) => node.type
 const edgeTypes = {}
 
 export default function Flow() {
+  const [infoNode, setInfoNode] = useState<NodeData>()
+  const [infoEdge, setInfoEdge] = useState<EdgeData>()
+  const [isLoading, setIsLoading] = useState<Boolean>(false)
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
-
+  const onNodeClick = (_: MouseEvent, node: NodeData) => {
+    setInfoNode(node)
+    console.log('click', node)
+  }
+  const onEdgeClick = (_: MouseEvent, edge: EdgeData) => {
+    setInfoEdge(edge)
+    console.log('click', edge)
+  }
   const onConnect = useCallback(
     (params: Connection) =>
       setEdges((eds) =>
@@ -99,9 +110,11 @@ export default function Flow() {
             edges={edges}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
+            onNodeClick={onNodeClick}
             onNodesChange={onNodesChange}
             onNodesDelete={onNodesDelete}
             onEdgesChange={onEdgesChange}
+            onEdgeClick={onEdgeClick}
             onConnect={onConnect}
             snapToGrid={true}
             snapGrid={snapGrid}
@@ -109,18 +122,25 @@ export default function Flow() {
             connectionLineStyle={connectionLineStyle}
             attributionPosition="top-right"
           >
-            <MiniMap
-              nodeStrokeColor={(n) => {
-                return '#0041d0'
-              }}
-              nodeColor={(n) => {
-                if (n.type === 'selectorNode') return '#fff000'
-                return '#fff'
-              }}
-            />
+            <MiniMap zoomable pannable nodeClassName={nodeClassName.toString()} />
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           </ReactFlow>
         </div>
+      </div>
+      <div className="flex-col">
+        <h1 className="font-semibold text-xl">Info</h1>
+        {infoNode && (
+          <>
+            <h1 className="font-semibold text-xl">Node Info</h1>
+            <p>{JSON.stringify(infoNode)}</p>
+          </>
+        )}
+        {infoEdge && (
+          <>
+            <h1 className="font-semibold text-xl">Edge Info</h1>
+            <p>{JSON.stringify(infoEdge)}</p>
+          </>
+        )}
       </div>
     </main>
   )
