@@ -9,61 +9,50 @@ import {
   getIncomers,
   getOutgoers,
   getConnectedEdges,
-  Node,
-  Edge,
   Connection,
+  MiniMap,
+  SnapGrid,
+  NodeTypes,
 } from '@xyflow/react'
 import { useNodesState } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
+import { initialEdges, initialNodes } from './NodesAndEdges'
+import { EdgeData, NodeData } from './NodesAndEdges'
+import './overview.css'
 
-interface NodeData {
-  label: string
-  [key: string]: unknown
+const snapGrid: SnapGrid = [20, 20]
+const connectionLineStyle = { stroke: '#fff' }
+
+import CircleNode from './nodes/CircleNode'
+import ToolbarNode from './nodes/ToolbarNode'
+import DefaultNode from './nodes/DefaultNode'
+import RedNode from './nodes/RedNode'
+
+const nodeTypes: NodeTypes = {
+  circle: CircleNode,
+  tools: ToolbarNode,
+  normalAddress: DefaultNode,
+  redAddress: RedNode,
 }
 
-const initialNodes: Node<NodeData>[] = [
-  {
-    id: '1',
-    type: 'input',
-    data: { label: 'Start here...' },
-    position: { x: -150, y: 0 },
-  },
-  {
-    id: '2',
-    type: 'input',
-    data: { label: '...or here!' },
-    position: { x: 150, y: 0 },
-  },
-  { id: '3', data: { label: 'Delete me.' }, position: { x: 0, y: 100 } },
-  { id: '4', data: { label: 'Then me!' }, position: { x: 0, y: 200 } },
-  {
-    id: '5',
-    type: 'output',
-    data: { label: 'End here!' },
-    position: { x: 0, y: 300 },
-  },
-]
-
-const initialEdges: Edge[] = [
-  { id: '1->3', source: '1', target: '3' },
-  { id: '2->3', source: '2', target: '3' },
-  { id: '3->4', source: '3', target: '4' },
-  { id: '4->5', source: '4', target: '5' },
-]
+const edgeTypes = {}
 
 export default function Flow() {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   const onConnect = useCallback(
-    (params: Edge | Connection) => setEdges((eds) => addEdge(params, eds)),
+    (params: Connection) =>
+      setEdges((eds) =>
+        addEdge({ ...params, animated: true, style: { stroke: '#fff' } }, eds)
+      ),
     []
   )
 
   const onNodesDelete = useCallback(
-    (deleted: Node<NodeData>[]) => {
+    (deleted: NodeData[]) => {
       setEdges((eds) =>
-        deleted.reduce((acc: Edge[], node: Node<NodeData>) => {
+        deleted.reduce((acc: EdgeData[], node: NodeData) => {
           const incomers = getIncomers(node, nodes, edges)
           const outgoers = getOutgoers(node, nodes, edges)
           const connectedEdges = getConnectedEdges([node], edges)
@@ -75,6 +64,19 @@ export default function Flow() {
               id: `${source}->${target}`,
               source,
               target,
+              details: {
+                // Default details object
+                event: '',
+                time: '',
+                details: {
+                  sender: source,
+                  sender_name: '', // Default or derived sender name
+                  amount: 0, // Default amount
+                  token: '', // Default token
+                  receiver: target,
+                  receiver_name: '', // Default or derived receiver name
+                },
+              },
             }))
           )
 
@@ -95,13 +97,27 @@ export default function Flow() {
           <ReactFlow
             nodes={nodes}
             edges={edges}
+            nodeTypes={nodeTypes}
+            edgeTypes={edgeTypes}
             onNodesChange={onNodesChange}
             onNodesDelete={onNodesDelete}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect}
+            snapToGrid={true}
+            snapGrid={snapGrid}
             fitView
+            connectionLineStyle={connectionLineStyle}
             attributionPosition="top-right"
           >
+            <MiniMap
+              nodeStrokeColor={(n) => {
+                return '#0041d0'
+              }}
+              nodeColor={(n) => {
+                if (n.type === 'selectorNode') return '#fff000'
+                return '#fff'
+              }}
+            />
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           </ReactFlow>
         </div>
