@@ -35,7 +35,9 @@ const nodeTypes: NodeTypes = {
   redAddress: RedNode,
 }
 
-const nodeClassName = (node: NodeData) => node.type
+const nodeClassName = (node: NodeData): string => {
+  return node.type ? node.type : 'normalAddress'
+}
 const edgeTypes = {}
 
 export default function Flow() {
@@ -75,7 +77,7 @@ export default function Flow() {
             connectionLineStyle={connectionLineStyle}
             attributionPosition="top-right"
           >
-            <MiniMap zoomable pannable nodeClassName={nodeClassName.toString()} />
+            <MiniMap zoomable pannable nodeClassName={nodeClassName} />
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           </ReactFlow>
         </div>

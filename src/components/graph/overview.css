@@ -271,15 +271,15 @@
   .react-flow__minimap .circle,
   .react-flow__minimap .normalAddress,
   .react-flow__minimap .textinput {
-    fill: rgb(208, 192, 247);
+    fill: rgb(115, 115, 115);
   }
 
   .react-flow__minimap .redAddress {
     fill: rgb(255, 0, 0);
   }
   
-  .react-flow__minimap .resizer {
-    fill: rgb(208, 192, 247);
+  .react-flow__minimap .circle {
+    fill: rgb(232, 54, 255);
   }
   
   .react-flow__minimap .circle,
