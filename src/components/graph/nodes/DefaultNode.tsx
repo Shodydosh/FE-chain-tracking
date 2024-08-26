@@ -17,7 +17,7 @@ const DefaultNode: React.FC<NodeProps> = ({ data }) => {
     <>
       <div className="wrapper gradient gradient-normal shadow-md">
         <div className="inner">
-          <User className="text-black" />
+          <User />
         </div>
       </div>
       <Handle type="target" position={Position.Left} />

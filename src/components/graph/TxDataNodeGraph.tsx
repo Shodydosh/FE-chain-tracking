@@ -1,18 +1,14 @@
 'use client'
-import React, { useState, useCallback, MouseEvent } from 'react'
+import React, { useState, MouseEvent } from 'react'
 import {
   ReactFlow,
   Background,
   BackgroundVariant,
   useEdgesState,
-  addEdge,
-  getIncomers,
-  getOutgoers,
-  getConnectedEdges,
-  Connection,
   MiniMap,
   SnapGrid,
   NodeTypes,
+  Controls,
 } from '@xyflow/react'
 import { useNodesState } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
@@ -24,13 +20,11 @@ const snapGrid: SnapGrid = [20, 20]
 const connectionLineStyle = { stroke: '#fff' }
 
 import CircleNode from './nodes/CircleNode'
-import ToolbarNode from './nodes/ToolbarNode'
 import DefaultNode from './nodes/DefaultNode'
 import RedNode from './nodes/RedNode'
 
 const nodeTypes: NodeTypes = {
   circle: CircleNode,
-  tools: ToolbarNode,
   normalAddress: DefaultNode,
   redAddress: RedNode,
 }
@@ -59,8 +53,8 @@ export default function Flow() {
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
       <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-3">
         <div
-          className=" p-2 border-black rounded-md border-dotted border-2 shadow-lg"
-          style={{ height: 800 }}
+          className=" border-black rounded-md border-dotted border-2 shadow-lg"
+          style={{ height: 1000 }}
         >
           <ReactFlow
             nodes={nodes}
@@ -78,6 +72,7 @@ export default function Flow() {
             attributionPosition="top-right"
           >
             <MiniMap zoomable pannable nodeClassName={nodeClassName} />
+            <Controls />
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           </ReactFlow>
         </div>

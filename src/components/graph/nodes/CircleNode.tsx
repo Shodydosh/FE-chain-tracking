@@ -5,7 +5,7 @@ import { User } from 'lucide-react'
 
 const labelStyle: React.CSSProperties = {
   position: 'absolute',
-  color: '#555',
+  color: 'rgb(50, 110, 250)',
   bottom: -15,
   fontSize: 8,
   alignContent: 'center',

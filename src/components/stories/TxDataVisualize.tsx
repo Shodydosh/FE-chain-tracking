@@ -4,7 +4,7 @@ import { ScrollArea, Box } from '@mantine/core'
 import { Separator } from '@/components/ui/separator'
 
 import TxDataTimeline from './TxDataTimeLine'
-// import StoriesTable from './StoriesTable'
+import StoriesTable from './StoriesTable'
 
 const tags = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`)
 
@@ -44,7 +44,7 @@ const TxDataVisualize: React.FC<TxDataVisualizeProps> = ({ txList }) => {
         </tbody>
       </table>
       <Separator className="my-8" />
-      {/* <StoriesTable /> */}
+      <StoriesTable />
       <div className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-4 xl:grid-cols-5">
         {/* <div className="col-span-1 bg-pink-300">
           <TxDataTimeline />

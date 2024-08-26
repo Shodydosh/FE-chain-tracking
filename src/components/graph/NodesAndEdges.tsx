@@ -1,5 +1,5 @@
 import { Position } from '@xyflow/react'
-import { Node, Edge } from '@xyflow/react'
+import { Node, Edge, MarkerType } from '@xyflow/react'
 
 export interface NodeData extends Node {
   details: {
@@ -41,6 +41,13 @@ export interface EdgeData extends Edge {
 const edgeDefaults = {
   animated: true,
   style: { stroke: 'black' },
+  markerEnd: {
+    type: MarkerType.ArrowClosed,
+    width: 20,
+    height: 20,
+    color: 'black',
+  },
+  label: '100 ETH',
 }
 
 const initialNodes: NodeData[] = [
@@ -86,7 +93,7 @@ const initialNodes: NodeData[] = [
     data: { label: '0xC02aaA323223FE8D0A0e5C4F27eAD9083C756zzz' },
     details: { address: '0xC02aaA323223FE8D0A0e5C4F27eAD9083C756zzz' },
     position: { x: 0, y: 200 },
-    type: 'tools',
+    type: 'redAddress',
   },
 ]
 
@@ -131,6 +138,7 @@ const initialEdges: EdgeData[] = [
     id: '3->4',
     source: '3',
     target: '4',
+
     details: {
       event: '',
       time: '8-5-2022T07:45',
