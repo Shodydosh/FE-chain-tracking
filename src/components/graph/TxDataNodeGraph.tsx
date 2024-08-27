@@ -13,7 +13,7 @@ import {
 import { useNodesState } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { initialEdges, initialNodes } from './NodesAndEdges'
-import { EdgeData, NodeData } from './NodesAndEdges'
+import { EdgeData, NodeData } from '@/types/graph.interface'
 import './overview.css'
 
 const snapGrid: SnapGrid = [20, 20]

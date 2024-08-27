@@ -1,26 +1,7 @@
 import { Position } from '@xyflow/react'
 import { Node, Edge, MarkerType } from '@xyflow/react'
-
-export interface NodeData extends Node {
-  details: {
-    address: string
-  }
-}
-
-export interface EdgeData extends Edge {
-  details: {
-    event: string
-    time: string
-    details: {
-      sender: string
-      sender_name: string
-      amount: number
-      token: string
-      receiver: string
-      receiver_name: string
-    }
-  }
-}
+import { NodeData, EdgeData, TransactionDetails } from '@/types/graph.interface'
+import transactions from '@/mocks/transactions_new.json'
 
 // const nodeDefaults = {
 //   sourcePosition: Position.Right,
@@ -50,7 +31,7 @@ const edgeDefaults = {
   label: '100 ETH',
 }
 
-const initialNodes: NodeData[] = [
+const initialNodesMock: NodeData[] = [
   {
     id: '1',
     data: {
@@ -96,23 +77,29 @@ const initialNodes: NodeData[] = [
     type: 'redAddress',
   },
 ]
-
-const initialEdges: EdgeData[] = [
+const initialEdgesMock: EdgeData[] = [
   {
     id: '1->3',
     source: '1',
     target: '3',
     details: {
-      event: '',
-      time: '8-5-2022T05:23',
-      details: {
-        sender: '1',
-        sender_name: 'Ethereum Mainnet',
-        amount: 6000000,
-        token: 'ETH',
-        receiver: '3',
-        receiver_name: 'Polygon Network',
-      },
+      block: 20612052,
+      hash: '0x9aaf7231bd7986369d993610a0b9a38fd5e88e0695cf325fddf781e5a424078e',
+      type: 2,
+      blockHash: '0x08c0ca871afd3051c85afda4960f03e946499f0ec4ab24c1d79c05a343c2aac1',
+      blockNumber: 20612052,
+      confirmations: 1019,
+      from: '0x1b9c17f71E1F99924f166484174acA3a0a2C9EC3',
+      gasPrice: '4662132764',
+      gas: '51816',
+      to: '0xABD4C63d2616A5201454168269031355f4764337',
+      value: '0',
+      nonce: 1,
+      data: '0xa9059cbb000000000000000000000000d7f46e0be18247ad954b33a04be8d8730eab7b8600000000000000000000000000000000000000000000002ecbe62c888e7e1c00',
+      r: '0x5187841313f4483db1c3e285f48fdbdef53d287b2fbfa3f01da583cde2642f6d',
+      s: '0x08458ada352fc815472bebefbfcc87612c3d7b8a356e9f598d5511343490c05b',
+      v: 1,
+      chainId: 1,
     },
     ...edgeDefaults,
   },
@@ -121,16 +108,23 @@ const initialEdges: EdgeData[] = [
     source: '1',
     target: '2',
     details: {
-      event: '',
-      time: '8-5-2022T07:44',
-      details: {
-        sender: '3',
-        sender_name: 'Polygon Network',
-        amount: 600,
-        token: 'ETH',
-        receiver: '2',
-        receiver_name: 'Ethereum Sepolia',
-      },
+      block: 20612052,
+      hash: '0x9aaf7231bd7986369d993610a0b9a38fd5e88e0695cf325fddf781e5a424078e',
+      type: 2,
+      blockHash: '0x08c0ca871afd3051c85afda4960f03e946499f0ec4ab24c1d79c05a343c2aac1',
+      blockNumber: 20612052,
+      confirmations: 1019,
+      from: '0x1b9c17f71E1F99924f166484174acA3a0a2C9EC3',
+      gasPrice: '4662132764',
+      gas: '51816',
+      to: '0xABD4C63d2616A5201454168269031355f4764337',
+      value: '0',
+      nonce: 1,
+      data: '0xa9059cbb000000000000000000000000d7f46e0be18247ad954b33a04be8d8730eab7b8600000000000000000000000000000000000000000000002ecbe62c888e7e1c00',
+      r: '0x5187841313f4483db1c3e285f48fdbdef53d287b2fbfa3f01da583cde2642f6d',
+      s: '0x08458ada352fc815472bebefbfcc87612c3d7b8a356e9f598d5511343490c05b',
+      v: 1,
+      chainId: 1,
     },
     ...edgeDefaults,
   },
@@ -140,16 +134,23 @@ const initialEdges: EdgeData[] = [
     target: '4',
 
     details: {
-      event: '',
-      time: '8-5-2022T07:45',
-      details: {
-        sender: '3',
-        sender_name: 'Polygon Network',
-        amount: 344,
-        token: 'ETH',
-        receiver: '4',
-        receiver_name: 'Alice',
-      },
+      block: 20612052,
+      hash: '0x9aaf7231bd7986369d993610a0b9a38fd5e88e0695cf325fddf781e5a424078e',
+      type: 2,
+      blockHash: '0x08c0ca871afd3051c85afda4960f03e946499f0ec4ab24c1d79c05a343c2aac1',
+      blockNumber: 20612052,
+      confirmations: 1019,
+      from: '0x1b9c17f71E1F99924f166484174acA3a0a2C9EC3',
+      gasPrice: '4662132764',
+      gas: '51816',
+      to: '0xABD4C63d2616A5201454168269031355f4764337',
+      value: '0',
+      nonce: 1,
+      data: '0xa9059cbb000000000000000000000000d7f46e0be18247ad954b33a04be8d8730eab7b8600000000000000000000000000000000000000000000002ecbe62c888e7e1c00',
+      r: '0x5187841313f4483db1c3e285f48fdbdef53d287b2fbfa3f01da583cde2642f6d',
+      s: '0x08458ada352fc815472bebefbfcc87612c3d7b8a356e9f598d5511343490c05b',
+      v: 1,
+      chainId: 1,
     },
     ...edgeDefaults,
   },
@@ -158,16 +159,23 @@ const initialEdges: EdgeData[] = [
     source: '4',
     target: '5',
     details: {
-      event: '',
-      time: '8-5-2022T12:25',
-      details: {
-        sender: '4',
-        sender_name: 'Polygon Network',
-        amount: 243,
-        token: 'ETH',
-        receiver: '5',
-        receiver_name: 'Tung',
-      },
+      block: 20612052,
+      hash: '0x9aaf7231bd7986369d993610a0b9a38fd5e88e0695cf325fddf781e5a424078e',
+      type: 2,
+      blockHash: '0x08c0ca871afd3051c85afda4960f03e946499f0ec4ab24c1d79c05a343c2aac1',
+      blockNumber: 20612052,
+      confirmations: 1019,
+      from: '0x1b9c17f71E1F99924f166484174acA3a0a2C9EC3',
+      gasPrice: '4662132764',
+      gas: '51816',
+      to: '0xABD4C63d2616A5201454168269031355f4764337',
+      value: '0',
+      nonce: 1,
+      data: '0xa9059cbb000000000000000000000000d7f46e0be18247ad954b33a04be8d8730eab7b8600000000000000000000000000000000000000000000002ecbe62c888e7e1c00',
+      r: '0x5187841313f4483db1c3e285f48fdbdef53d287b2fbfa3f01da583cde2642f6d',
+      s: '0x08458ada352fc815472bebefbfcc87612c3d7b8a356e9f598d5511343490c05b',
+      v: 1,
+      chainId: 1,
     },
     ...edgeDefaults,
   },
@@ -176,19 +184,116 @@ const initialEdges: EdgeData[] = [
     source: '2',
     target: '5',
     details: {
-      event: '',
-      time: '8-5-2022T12:25',
-      details: {
-        sender: '2',
-        sender_name: 'Polygon Network',
-        amount: 243,
-        token: 'ETH',
-        receiver: '5',
-        receiver_name: 'Tung',
-      },
+      block: 20612052,
+      hash: '0x9aaf7231bd7986369d993610a0b9a38fd5e88e0695cf325fddf781e5a424078e',
+      type: 2,
+      blockHash: '0x08c0ca871afd3051c85afda4960f03e946499f0ec4ab24c1d79c05a343c2aac1',
+      blockNumber: 20612052,
+      confirmations: 1019,
+      from: '0x1b9c17f71E1F99924f166484174acA3a0a2C9EC3',
+      gasPrice: '4662132764',
+      gas: '51816',
+      to: '0xABD4C63d2616A5201454168269031355f4764337',
+      value: '0',
+      nonce: 1,
+      data: '0xa9059cbb000000000000000000000000d7f46e0be18247ad954b33a04be8d8730eab7b8600000000000000000000000000000000000000000000002ecbe62c888e7e1c00',
+      r: '0x5187841313f4483db1c3e285f48fdbdef53d287b2fbfa3f01da583cde2642f6d',
+      s: '0x08458ada352fc815472bebefbfcc87612c3d7b8a356e9f598d5511343490c05b',
+      v: 1,
+      chainId: 1,
     },
     ...edgeDefaults,
   },
 ]
+
+function mapTransactionToNodeData(transactions: TransactionDetails[]): NodeData[] {
+  const nodesMap: Record<string, NodeData> = {}
+  const levelMap: Record<string, number> = {}
+  const levelPositions: Record<number, number> = {} // Tracks the y position for each level
+  let initialX = 50
+  let initialY = 50
+  const horizontalSpacing = 250 // Adjust the spacing between levels horizontally
+  const verticalSpacing = 100 // Adjust the spacing between nodes vertically
+
+  transactions.forEach((transaction) => {
+    const fromNodeId = transaction.from
+    const toNodeId = transaction.to
+
+    // Determine levels
+    if (levelMap[fromNodeId] === undefined) {
+      levelMap[fromNodeId] = 0 // Assign root level
+    }
+    if (levelMap[toNodeId] === undefined) {
+      levelMap[toNodeId] = levelMap[fromNodeId] + 1 // Target node is one level further to the right from source node
+    }
+
+    // Calculate positions based on level
+    if (!levelPositions[levelMap[fromNodeId]]) {
+      levelPositions[levelMap[fromNodeId]] = initialY
+    }
+
+    if (!nodesMap[fromNodeId]) {
+      nodesMap[fromNodeId] = {
+        id: fromNodeId,
+        data: { label: transaction.from },
+        type: 'normalAddress',
+        details: {
+          address: transaction.from,
+        },
+        position: {
+          x: initialX + levelMap[fromNodeId] * horizontalSpacing, // Horizontal position based on level
+          y: levelPositions[levelMap[fromNodeId]], // Vertical position based on level
+        },
+      }
+      levelPositions[levelMap[fromNodeId]] += verticalSpacing
+    }
+
+    if (!nodesMap[toNodeId]) {
+      if (!levelPositions[levelMap[toNodeId]]) {
+        levelPositions[levelMap[toNodeId]] = initialY
+      }
+
+      nodesMap[toNodeId] = {
+        id: toNodeId,
+        data: { label: transaction.to },
+        type: 'normalAddress',
+        details: {
+          address: transaction.to,
+        },
+        position: {
+          x: initialX + levelMap[toNodeId] * horizontalSpacing, // Horizontal position based on level
+          y: levelPositions[levelMap[toNodeId]], // Vertical position based on level
+        },
+      }
+      levelPositions[levelMap[toNodeId]] += verticalSpacing
+    }
+  })
+
+  return Object.values(nodesMap)
+}
+
+function mapTransactionFields(transactions: TransactionDetails[]): EdgeData[] {
+  return transactions.map((transaction) => {
+    const { from, to, hash, ...otherDetails } = transaction
+    return {
+      id: hash,
+      source: from,
+      target: to,
+      details: {
+        ...otherDetails,
+        from,
+        to,
+      },
+      ...edgeDefaults,
+    } as EdgeData
+  })
+}
+
+const initialNodes = mapTransactionToNodeData(transactions)
+const initialEdges = mapTransactionFields(transactions)
+// const initialNodes = initialNodesMock
+// const initialEdges = initialEdgesMock
+console.log('initialEdges', initialEdges)
+console.log('initialNodes', initialNodes)
 
 export { initialEdges, initialNodes }
