@@ -5,7 +5,6 @@ import { User } from 'lucide-react'
 
 const labelStyle: React.CSSProperties = {
   position: 'absolute',
-  color: 'red',
   bottom: -15,
   fontSize: 8,
   alignContent: 'center',
@@ -15,14 +14,16 @@ const labelStyle: React.CSSProperties = {
 const RedNode: React.FC<NodeProps> = ({ data }) => {
   return (
     <>
-      <div className="wrapper gradient gradient-red shadow-md">
+      <div className="wrapper gradient gradient-yellow shadow-md">
         <div className="inner">
-          <User className="text-red-500" />
+          <User className="text-yellow-400" />
         </div>
       </div>
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
-      <div style={labelStyle}>{data.label as React.ReactNode}</div>
+      <div className="text-yellow-600" style={labelStyle}>
+        {data.label as React.ReactNode}
+      </div>
     </>
   )
 }

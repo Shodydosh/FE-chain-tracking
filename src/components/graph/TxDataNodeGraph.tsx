@@ -22,11 +22,13 @@ const connectionLineStyle = { stroke: '#fff' }
 import CircleNode from './nodes/CircleNode'
 import DefaultNode from './nodes/DefaultNode'
 import RedNode from './nodes/RedNode'
+import YellowNode from './nodes/YellowNode'
 
 const nodeTypes: NodeTypes = {
   circle: CircleNode,
   normalAddress: DefaultNode,
   redAddress: RedNode,
+  yellowAddress: YellowNode,
 }
 
 const nodeClassName = (node: NodeData): string => {
