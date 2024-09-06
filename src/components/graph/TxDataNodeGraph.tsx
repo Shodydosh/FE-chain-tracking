@@ -35,20 +35,28 @@ const nodeClassName = (node: NodeData): string => {
   return node.type ? node.type : 'normalAddress'
 }
 const edgeTypes = {}
+interface FlowProps {
+  onAddressClick: (node: NodeData) => void // Function that takes NodeData as argument
+  onTxClick: (edge: EdgeData) => void // Function that takes EdgeData as argument
+}
 
-export default function Flow() {
-  const [infoNode, setInfoNode] = useState<NodeData>()
-  const [infoEdge, setInfoEdge] = useState<EdgeData>()
-  const [isLoading, setIsLoading] = useState<Boolean>(false)
+export default function Flow({ onAddressClick, onTxClick }: FlowProps) {
   const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
-  const onNodeClick = (_: MouseEvent, node: NodeData) => {
-    setInfoNode(node)
-    console.log('click', node)
+
+  // Wrap click handlers with necessary calls to pass node or edge info to parent component
+  const handleNodeClick = (_: MouseEvent, node: NodeData) => {
+    if (onAddressClick) {
+      onAddressClick(node)
+    }
+    console.log('Node clicked', node)
   }
-  const onEdgeClick = (_: MouseEvent, edge: EdgeData) => {
-    setInfoEdge(edge)
-    console.log('click', edge)
+
+  const handleEdgeClick = (_: MouseEvent, edge: EdgeData) => {
+    if (onTxClick) {
+      onTxClick(edge)
+    }
+    console.log('Edge clicked', edge)
   }
 
   return (
@@ -63,10 +71,10 @@ export default function Flow() {
             edges={edges}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
-            onNodeClick={onNodeClick}
+            onNodeClick={handleNodeClick}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
-            onEdgeClick={onEdgeClick}
+            onEdgeClick={handleEdgeClick}
             snapToGrid={true}
             snapGrid={snapGrid}
             fitView
@@ -78,21 +86,6 @@ export default function Flow() {
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           </ReactFlow>
         </div>
-      </div>
-      <div className="flex-col">
-        <h1 className="font-semibold text-xl">Info</h1>
-        {infoNode && (
-          <>
-            <h1 className="font-semibold text-xl">Node Info</h1>
-            <p>{JSON.stringify(infoNode)}</p>
-          </>
-        )}
-        {infoEdge && (
-          <>
-            <h1 className="font-semibold text-xl">Edge Info</h1>
-            <p>{JSON.stringify(infoEdge)}</p>
-          </>
-        )}
       </div>
     </main>
   )
