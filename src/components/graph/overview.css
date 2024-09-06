@@ -132,8 +132,8 @@
     height: 75px;
     width: 75px;
     box-shadow:
-      6px 2px 15px rgba(246, 255, 0, 0.3),
-      -6px 2px 15px rgba(254, 237, 0, 0.3);
+      6px 2px 15px rgba(246, 255, 0, 0.5),
+      -6px 2px 15px rgba(254, 237, 0, 0.5);
     justify-content: center;
     text-align: center;
   }
@@ -222,7 +222,7 @@
     background: rgb(255,0, 0, 0.8)
   }
   .gradient-yellow:before {
-    background: rgba(249, 230, 20, 1)
+    background: rgb(232, 212, 0)
   }
   
   .react-flow__minimap .group {
@@ -237,11 +237,11 @@
   }
 
   .react-flow__minimap .redAddress {
-    fill: rgb(255, 0, 0);
+    fill: rgb(255, 0, 0, .5);
   }
   
   .react-flow__minimap .yellowAddress {
-    fill: rgb(249, 230, 20);
+    fill: rgb(249, 230, 20, .5);
   }
   
   .react-flow__minimap .circle {

@@ -553,7 +553,7 @@
         },
         "to": {
             "publicAddress": "0x888888888889758F76e7103c6CbF23ABbF58F946",
-            "classify": "normalAddress"
+            "classify": "yellowAddress"
         },
         "value": {
             "type": "BigNumber",

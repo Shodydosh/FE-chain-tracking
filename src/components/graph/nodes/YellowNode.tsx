@@ -16,7 +16,7 @@ const RedNode: React.FC<NodeProps> = ({ data }) => {
     <>
       <div className="wrapper gradient gradient-yellow shadow-md">
         <div className="inner">
-          <User className="text-yellow-400" />
+          <User className="text-yellow-600" />
         </div>
       </div>
       <Handle type="target" position={Position.Left} />
