@@ -1,22 +1,25 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { EdgeData, NodeData } from '@/types/graph.interface'
 import TxDataNodeGraph from '@/components/graph/TxDataNodeGraph'
 import AddressInfoCard from '../card/AddressInfoCard'
+import TxInfoCard from '../card/TxInfoCard'
 
 const GraphContent = () => {
-  // State to store the clicked node or edge info
   const [nodeInfo, setNodeInfo] = useState<NodeData | null>(null)
   const [edgeInfo, setEdgeInfo] = useState<EdgeData | null>(null)
+  const [lastUpdated, setLastUpdated] = useState<'node' | 'edge' | null>(null)
 
-  // Handler for when a node is clicked
   const handleNodeClick = (nodeInfo: NodeData) => {
     setNodeInfo(nodeInfo)
+    setEdgeInfo(null) // Xóa edgeInfo khi node được click
+    setLastUpdated('node') // Đặt trạng thái cập nhật gần nhất là node
   }
 
-  // Handler for when an edge is clicked
   const handleEdgeClick = (edgeInfo: EdgeData) => {
     setEdgeInfo(edgeInfo)
+    setNodeInfo(null) // Xóa nodeInfo khi edge được click
+    setLastUpdated('edge') // Đặt trạng thái cập nhật gần nhất là edge
   }
 
   return (
@@ -29,8 +32,8 @@ const GraphContent = () => {
           />
         </div>
         <div>
-          {nodeInfo && JSON.stringify(nodeInfo)}
-          {edgeInfo && JSON.stringify(edgeInfo)}
+          {nodeInfo && <AddressInfoCard nodeData={nodeInfo} />}
+          {edgeInfo && <TxInfoCard edgeData={edgeInfo} />}
         </div>
       </div>
     </main>

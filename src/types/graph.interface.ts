@@ -8,14 +8,9 @@ export interface EdgeData extends Edge {
     details: TransactionDetails
 }
 
-export interface BigNumber {
-  type: string; // Usually 'BigNumber'
-  hex: string;  // The hexadecimal string representing the number
-}
-
 export interface Account {
-  publicAddress: string;
-  classify: string;
+  address: string;
+  type?: string;
 }
 
 export interface TransactionDetails {
@@ -23,18 +18,21 @@ export interface TransactionDetails {
   blockHash: string;
   hash: string;
   type: number;
+  accessList: string[] | null; // Based on the empty array from the example
+  transactionIndex?: number; // Added as it's in the provided data
   confirmations: number;
   from: Account;
-  gasPrice: BigNumber;
-  maxPriorityFeePerGas?: BigNumber;
-  maxFeePerGas?: BigNumber;
-  gasLimit: BigNumber;
+  gasPrice: string;
+  maxPriorityFeePerGas?: string;
+  maxFeePerGas?: string;
+  gasLimit: string;
   to: Account;
-  value: BigNumber;
+  value: string | number; // To handle 0 as a number as well as strings
   nonce: number;
   data: string;
   r: string;
   s: string;
   v: number;
+  creates?: string | null; // Added because it's in the data (null in this case)
   chainId: number;
 }

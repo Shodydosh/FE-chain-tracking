@@ -8,25 +8,16 @@
         "transactionIndex": 47,
         "confirmations": 9204872,
         "from": {
-            "publicAddress": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
-            "classify": "normalAddress"
+            "address": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x0f224d4a00"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x5208"
-        },
+        "gasPrice": "65000000000",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x05f51AAb068CAa6Ab7eeb672f88c180f67F17eC7",
-            "classify": "normalAddress"
+            "address": "0x05f51AAb068CAa6Ab7eeb672f88c180f67F17eC7",
+            "type": "contract_exchange"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x0de0b6b3a7640000"
-        },
+        "value": "1000000000000000000",
         "nonce": 14,
         "data": "0x",
         "r": "0x6e9520e95f457f04e9baae390131d93f375ec00c7c14fb23775f25544fc45f6b",
@@ -44,33 +35,18 @@
         "transactionIndex": 80,
         "confirmations": 1208771,
         "from": {
-            "publicAddress": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
-            "classify": "normalAddress"
+            "address": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x11acfc9dff"
-        },
-        "maxPriorityFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x3a704ffb"
-        },
-        "maxFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x1ac73a7393"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x5208"
-        },
+        "gasPrice": "75916680703",
+        "maxPriorityFeePerGas": "980439035",
+        "maxFeePerGas": "115011646355",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x5Db501cE0ae693A4d1600Bf29CA78878BFEe28fB",
-            "classify": "redAddress"
+            "address": "0x5Db501cE0ae693A4d1600Bf29CA78878BFEe28fB",
+            "type": "EOA_active"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x14b3ed5a9b69ae0000"
-        },
+        "value": "381900000000000000000",
         "nonce": 82,
         "data": "0x",
         "r": "0x88fc8f399905025a36dbdf66b75c00fcc5385a13252f01938348eeee76a411a5",
@@ -88,25 +64,16 @@
         "transactionIndex": 180,
         "confirmations": 9178927,
         "from": {
-            "publicAddress": "0x05f51AAb068CAa6Ab7eeb672f88c180f67F17eC7",
-            "classify": "normalAddress"
+            "address": "0x05f51AAb068CAa6Ab7eeb672f88c180f67F17eC7",
+            "type": "contract_exchange"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x0a7a3587b3"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x5208"
-        },
+        "gasPrice": "45000001459",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
-            "classify": "normalAddress"
+            "address": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
+            "type": "EOA_active"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x0d657150fc1228f5"
-        },
+        "value": "965302287781210357",
         "nonce": 39175,
         "data": "0x",
         "r": "0x7d7a5600d6b070f50ca722765156ecee2acc5a44f0e699b8d434b32defff5c65",
@@ -124,25 +91,16 @@
         "transactionIndex": 162,
         "confirmations": 9133318,
         "from": {
-            "publicAddress": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
-            "classify": "normalAddress"
+            "address": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x0861c46800"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x5208"
-        },
+        "gasPrice": "36000000000",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0xA5045D9Ee095D9A9Ede07C90c700a825a5c861f3",
-            "classify": "normalAddress"
+            "address": "0xA5045D9Ee095D9A9Ede07C90c700a825a5c861f3",
+            "type": "EOA_active"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x0de0b6b3a7640000"
-        },
+        "value": "1000000000000000000",
         "nonce": 15,
         "data": "0x",
         "r": "0xd1d02fe0387a4e9f49754b23ecf6a2d6149d9a5a362e44d49b424e4a26f2d682",
@@ -160,33 +118,18 @@
         "transactionIndex": 36,
         "confirmations": 161835,
         "from": {
-            "publicAddress": "0x5Db501cE0ae693A4d1600Bf29CA78878BFEe28fB",
-            "classify": "redAddress"
+            "address": "0x5Db501cE0ae693A4d1600Bf29CA78878BFEe28fB",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x9a18a546"
-        },
-        "maxPriorityFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x3baa0c40"
-        },
-        "maxFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x02e54d9b53"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x5208"
-        },
+        "gasPrice": "2585306438",
+        "maxPriorityFeePerGas": "1001000000",
+        "maxFeePerGas": "12437003091",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x7277b62407D58408177Bc75c09eBc466dBE64Be0",
-            "classify": "normalAddress"
+            "address": "0x7277b62407D58408177Bc75c09eBc466dBE64Be0",
+            "type": "EOA_active"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x05021d2d2c7a3000"
-        },
+        "value": "360883000000000000",
         "nonce": 177,
         "data": "0x",
         "r": "0x6e5dfcb206a320cf22e9cfc973921171de2a2aa6b35796198c0d09d0a27265d5",
@@ -204,33 +147,18 @@
         "transactionIndex": 75,
         "confirmations": 312078,
         "from": {
-            "publicAddress": "0x7277b62407D58408177Bc75c09eBc466dBE64Be0",
-            "classify": "normalAddress"
+            "address": "0x5Db501cE0ae693A4d1600Bf29CA78878BFEe28fB",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x010dda343e"
-        },
-        "maxPriorityFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x3baa0c40"
-        },
-        "maxFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x034ccc61f8"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x01fbd0"
-        },
+        "gasPrice": "4527371326",
+        "maxPriorityFeePerGas": "1001000000",
+        "maxFeePerGas": "14173364728",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
-            "classify": "normalAddress"
+            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "type": "contract_normal"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x00"
-        },
+        "value": 0,
         "nonce": 310,
         "data": "0xa9059cbb0000000000000000000000002984f65d6fc1e8b24ed1ffcf3204f2504bad4a78000000000000000000000000000000000000000000000000000000482d709c00",
         "r": "0x2d902443a8abda49f54a5a03c6ae5be16376a3a7d71a428abf3b31d15ec17d41",
@@ -248,25 +176,16 @@
         "transactionIndex": 24,
         "confirmations": 4663337,
         "from": {
-            "publicAddress": "0x7277b62407D58408177Bc75c09eBc466dBE64Be0",
-            "classify": "normalAddress"
+            "address": "0x5Db501cE0ae693A4d1600Bf29CA78878BFEe28fB",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x0460a04d6e"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x5208"
-        },
+        "gasPrice": "18800987502",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
-            "classify": "normalAddress"
+            "address": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
+            "type": "EOA_active"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x01e7e4171bf4d3a00000"
-        },
+        "value": "9000000000000000000000",
         "nonce": 41,
         "data": "0x",
         "r": "0x182d16387f236304300d140913b0abf8bd9d9dca23b29f9991838c334d840b89",
@@ -284,25 +203,16 @@
         "transactionIndex": 87,
         "confirmations": 9204491,
         "from": {
-            "publicAddress": "0x05f51AAb068CAa6Ab7eeb672f88c180f67F17eC7",
-            "classify": "normalAddress"
+            "address": "0x05f51AAb068CAa6Ab7eeb672f88c180f67F17eC7",
+            "type": "contract_exchange"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x0f224d49ff"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x0135bb"
-        },
+        "gasPrice": "64999999999",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x48C1B2f3eFA85fbafb2ab951bF4Ba860a08cdBB7",
-            "classify": "normalAddress"
+            "address": "0x48C1B2f3eFA85fbafb2ab951bF4Ba860a08cdBB7",
+            "type": "contract_normal"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x00"
-        },
+        "value": 0,
         "nonce": 39173,
         "data": "0xa9059cbb000000000000000000000000b84844becf02d9f9839f2e6860411e0083bf1c7b00000000000000000000000000000000000000000000000000000000002ff9ba",
         "r": "0xab447cd832203332473c94fb6b9c78c0f7ba1e01c17a01a0b967a6154a033b22",
@@ -320,33 +230,18 @@
         "transactionIndex": 63,
         "confirmations": 439648,
         "from": {
-            "publicAddress": "0x7277b62407D58408177Bc75c09eBc466dBE64Be0",
-            "classify": "normalAddress"
+            "address": "0x5Db501cE0ae693A4d1600Bf29CA78878BFEe28fB",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x013bb58156"
-        },
-        "maxPriorityFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x3baa0c40"
-        },
-        "maxFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x03876a2722"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x01fbd0"
-        },
+        "gasPrice": "5296718166",
+        "maxPriorityFeePerGas": "1001000000",
+        "maxFeePerGas": "115011646355",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            "classify": "normalAddress"
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "type": "contract_exchange"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x00"
-        },
+        "value": 0,
         "nonce": 307,
         "data": "0xa9059cbb0000000000000000000000002984f65d6fc1e8b24ed1ffcf3204f2504bad4a78000000000000000000000000000000000000000000000000000000170cdc1e00",
         "r": "0x36e573f68c6f1b7f4ca8677441bd4f2885de0fb68cdef4278cbd09cb35943b5d",
@@ -364,25 +259,16 @@
         "transactionIndex": 75,
         "confirmations": 770450,
         "from": {
-            "publicAddress": "0x2984F6B886D4D0A623b859f19D6ba59186ad4A78",
-            "classify": "normalAddress"
+            "address": "0x2984F6B886D4D0A623b859f19D6ba59186ad4A78",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x022003114a"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x5208"
-        },
+        "gasPrice": "9127006538",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x7277b62407D58408177Bc75c09eBc466dBE64Be0",
-            "classify": "normalAddress"
+            "address": "0x5Db501cE0ae693A4d1600Bf29CA78878BFEe28fB",
+            "type": "EOA_active"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x2d79883d2000"
-        },
+        "value": "50000000000000",
         "nonce": 2,
         "data": "0x",
         "r": "0x0d9461ff2614ef9f68c91ccd4d7256aed7dad363aca627523472af0d0f105200",
@@ -400,33 +286,18 @@
         "transactionIndex": 73,
         "confirmations": 1842501,
         "from": {
-            "publicAddress": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
-            "classify": "normalAddress"
+            "address": "0xB84844becf02D9f9839f2e6860411E0083bf1c7b",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x0bcc9d2c44"
-        },
-        "maxPriorityFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x210b7447"
-        },
-        "maxFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x126ff7e563"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0xcaf1"
-        },
+        "gasPrice": "50677492804",
+        "maxPriorityFeePerGas": "1001000000",
+        "maxFeePerGas": "115011646355",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x8290333ceF9e6D528dD5618Fb97a76f268f3EDD4",
-            "classify": "normalAddress"
+            "address": "0x8290333ceF9e6D528dD5618Fb97a76f268f3EDD4",
+            "type": "contract_exchange"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x00"
-        },
+        "value": 0,
         "nonce": 63,
         "data": "0xa9059cbb0000000000000000000000009068d731100701f384db2710cf08718dbf6549670000000000000000000000000000000000000000000000771906d70c48704000",
         "r": "0x2caff4edb90452d6ac4ac20af38258cf406d908cd20cce86e683a8f3609382d5",
@@ -444,33 +315,18 @@
         "transactionIndex": 81,
         "confirmations": 670226,
         "from": {
-            "publicAddress": "0x9068d731100701F384db2710CF08718Dbf654967",
-            "classify": "normalAddress"
+            "address": "0x9068d731100701F384db2710CF08718Dbf654967",
+            "type": "EOA_active"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x01dcd65000"
-        },
-        "maxPriorityFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x77359400"
-        },
-        "maxFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x01dcd65000"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x032918"
-        },
+        "gasPrice": "8000000000",
+        "maxPriorityFeePerGas": "1001000000",
+        "maxFeePerGas": "115011646355",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x28C6c06298d514Db089934071355E5743bf21d60",
-            "classify": "normalAddress"
+            "address": "0x28C6c06298d514Db089934071355E5743bf21d60",
+            "type": "contract_exchange"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x03cb4717e984873401"
-        },
+        "value": "69987934825892754433",
         "nonce": 50,
         "data": "0x",
         "r": "0x5d8af64cb986b5247fccca17b84613ce54e56797a58867e85d7ade2b69be852f",
@@ -488,33 +344,18 @@
         "transactionIndex": 177,
         "confirmations": 48,
         "from": {
-            "publicAddress": "0x28C6c06298d514Db089934071355E5743bf21d60",
-            "classify": "normalAddress"
+            "address": "0x28C6c06298d514Db089934071355E5743bf21d60",
+            "type": "contract_exchange"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0x01272e71ae"
-        },
-        "maxPriorityFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x77359400"
-        },
-        "maxFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x17bfac7c00"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x032918"
-        },
+        "gasPrice": "4952322478",
+        "maxPriorityFeePerGas": "1001000000",
+        "maxFeePerGas": "115011646355",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x193f9FA2c49E257e56105A8490c480D1360BE431",
-            "classify": "normalAddress"
+            "address": "0x193f9FA2c49E257e56105A8490c480D1360BE431",
+            "type": "contract_exchange"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x133268bdcfc400"
-        },
+        "value": "5403450000000000",
         "nonce": 10369683,
         "data": "0x",
         "r": "0x8c05a3f64a0c899c505958bb926d405f068ce563bf64f3782439505541e00764",
@@ -532,33 +373,18 @@
         "transactionIndex": 246,
         "confirmations": 260005,
         "from": {
-            "publicAddress": "0x193f9FA2c49E257e56105A8490c480D1360BE431",
-            "classify": "normalAddress"
+            "address": "0x193f9FA2c49E257e56105A8490c480D1360BE431",
+            "type": "contract_exchange"
         },
-        "gasPrice": {
-            "type": "BigNumber",
-            "hex": "0xb2d05e00"
-        },
-        "maxPriorityFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0x11e1a300"
-        },
-        "maxFeePerGas": {
-            "type": "BigNumber",
-            "hex": "0xb2d05e00"
-        },
-        "gasLimit": {
-            "type": "BigNumber",
-            "hex": "0x07c65c"
-        },
+        "gasPrice": "4952322478",
+        "maxPriorityFeePerGas": "1001000000",
+        "maxFeePerGas": "115011646355",
+        "gasLimit": "21000",
         "to": {
-            "publicAddress": "0x888888888889758F76e7103c6CbF23ABbF58F946",
-            "classify": "yellowAddress"
+            "address": "0x888888888889758F76e7103c6CbF23ABbF58F946",
+            "type": "router"
         },
-        "value": {
-            "type": "BigNumber",
-            "hex": "0x00"
-        },
+        "value": 0,
         "nonce": 35,
         "data": "0x7b8b4b95000000000000000000000000193f9fa2c49e257e56105a8490c480d1360be431000000000000000000000000a54fc268101c8b97de19ef3141d34751a11996b2000000000000000000000000000000000000000000000000000f36fe08f7d32200000000000000000000000000000000000000000000000003cf79cd21d43ab600000000000000000000000000000000000000000000000001e839e2f3f977d800000000000000000000000000000000000000000000000003d55561c8660a4e00000000000000000000000000000000000000000000000003d073c5e7f2efb0000000000000000000000000000000000000000000000000000000000000001e0000000000000000000000000000000000000000000000000001c6bf5263400000000000000000000000000000000000000000000000000000000000000001400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000a000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
         "r": "0xcb535724c76b28ed87d6fc35c5bce68a3c83c12ed796117fa0e6942faa65dd61",

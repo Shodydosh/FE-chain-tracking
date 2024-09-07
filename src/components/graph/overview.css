@@ -245,7 +245,7 @@
   }
   
   .react-flow__minimap .circle {
-    fill: rgb(54, 67, 255);
+    fill: rgb(54, 67, 255, .5);
   }
   
   .react-flow__minimap .circle,

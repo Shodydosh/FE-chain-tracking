@@ -1,14 +1,7 @@
 import React from 'react'
-import Image from 'next/image'
+import { NodeData } from '@/types/graph.interface'
 
-import {
-  ChevronLeft,
-  ChevronRight,
-  Copy,
-  CreditCard,
-  MoreVertical,
-  Check,
-} from 'lucide-react'
+import { Copy, MoreVertical, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -25,18 +18,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/pagination'
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
 
-const AddressInfoCard = () => {
+const AddressInfoCard = ({ nodeData }: { nodeData: NodeData }) => {
+  const AddressData = nodeData.details
   return (
     <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
       <CardHeader className="flex flex-row items-start bg-muted/50">
         <div className="grid gap-0.5">
-          <CardTitle className="group flex items-center gap-2 text-lg">Address</CardTitle>
+          <CardTitle className="group flex items-center gap-2 text-lg">
+            Address Info
+          </CardTitle>
           <CardDescription className="break-all pr-6">
-            0x974CaA59e49682CdA0AD2bbe82983419A2ECC400
+            {AddressData.address}
           </CardDescription>
         </div>
         <div className="ml-auto flex items-center gap-1">
@@ -62,19 +57,7 @@ const AddressInfoCard = () => {
 
       <CardContent className="p-6 text-sm">
         <div className="grid gap-3">
-          <div className="font-semibold">Transaction Action</div>
-          <dl className="grid gap-3">
-            <div className="flex items-center justify-between">
-              <dt className="flex items-center gap-1 text-muted-foreground">
-                Transfer 0.015629749291605018 ETH ($40.67) by beaverbuild to
-                0x876528533158c07C1b87291C35F84104cd64Ec01
-              </dt>
-            </div>
-          </dl>
-        </div>
-        <Separator className="my-4" />
-        <div className="grid gap-3">
-          <div className="font-semibold">Transaction Details</div>
+          <div className="font-semibold">Account Details</div>
           <ul className="grid gap-3">
             <li className="flex items-center">
               <span className="text-muted-foreground w-1/4 ">Status:</span>
@@ -181,6 +164,8 @@ const AddressInfoCard = () => {
 
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
         <div className="text-xs text-muted-foreground">
+          {JSON.stringify(nodeData, null, 2)}
+          <Separator className="my-2" />
           Updated <time dateTime="2023-11-23">November 23, 2023</time>
         </div>
       </CardFooter>

@@ -1,14 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
+import { EdgeData } from '@/types/graph.interface'
 
-import {
-  ChevronLeft,
-  ChevronRight,
-  Copy,
-  CreditCard,
-  MoreVertical,
-  Check,
-} from 'lucide-react'
+import { ChevronLeft, ChevronRight, Copy, MoreVertical, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   Card,
@@ -29,7 +23,7 @@ import { Pagination, PaginationContent, PaginationItem } from '@/components/ui/p
 import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
 
-const TxInfoCard = () => {
+const TxInfoCard = ({ edgeData }: { edgeData: EdgeData }) => {
   return (
     <Card className="overflow-hidden" x-chunk="dashboard-05-chunk-4">
       <CardHeader className="flex flex-row items-start bg-muted/50">
@@ -184,6 +178,8 @@ const TxInfoCard = () => {
 
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3">
         <div className="text-xs text-muted-foreground">
+          {JSON.stringify(edgeData, null, 2)}
+          <Separator className="my-2" />
           Updated <time dateTime="2023-11-23">November 23, 2023</time>
         </div>
         <Pagination className="ml-auto mr-0 w-auto">

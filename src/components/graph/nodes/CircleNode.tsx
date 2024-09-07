@@ -17,7 +17,7 @@ const CircleNode: React.FC<NodeProps> = ({ data }) => {
     <>
       <div className="wrapper gradient gradient-input">
         <div className="inner">
-          <User />
+          <User className="text-blue-600" />
         </div>
       </div>
       <Handle type="source" position={Position.Right} />

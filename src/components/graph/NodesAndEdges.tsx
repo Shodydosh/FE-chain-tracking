@@ -3,21 +3,21 @@ import { Node, Edge, MarkerType } from '@xyflow/react'
 import { NodeData, EdgeData, TransactionDetails } from '@/types/graph.interface'
 import transactions from '@/mocks/transactions_new.json'
 
-// const nodeDefaults = {
-//   sourcePosition: Position.Right,
-//   targetPosition: Position.Left,
-//   style: {
-//     borderRadius: '3rem',
-//     backgroundColor: '#fff',
-//     width: 200,
-//     height: 50,
-//     display: 'flex',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//     fontSize: '6px',
-//   },
-//   animated: true,
-// }
+const nodeDefaults = {
+  sourcePosition: Position.Right,
+  targetPosition: Position.Left,
+  style: {
+    borderRadius: '3rem',
+    backgroundColor: '#fff',
+    width: 200,
+    height: 50,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: '6px',
+  },
+  animated: true,
+}
 
 const edgeDefaults = {
   animated: true,
@@ -205,6 +205,16 @@ const edgeDefaults = {
 //   },
 // ]
 
+function mapNodeType(nodeType: string | undefined): string {
+  if (nodeType === 'contract') {
+    return 'redAddress'
+  } else if (nodeType === 'contract_exchange') {
+    return 'circle'
+  } else if (nodeType === 'miner') {
+    return 'yellowAddress'
+  } else return 'normalAddress'
+}
+
 function mapTransactionToNodeData(transactions: TransactionDetails[]): NodeData[] {
   const nodesMap: Record<string, NodeData> = {}
   const levelMap: Record<string, number> = {}
@@ -215,10 +225,10 @@ function mapTransactionToNodeData(transactions: TransactionDetails[]): NodeData[
   const verticalSpacing = 100 // Adjust the spacing between nodes vertically
 
   transactions.forEach((transaction) => {
-    const fromNodeId = transaction.from.publicAddress
-    const fromNodeClassify = transaction.from.classify
-    const toNodeId = transaction.to.publicAddress
-    const toNodeClassify = transaction.to.classify
+    const fromNodeId = transaction.from.address
+    const fromNodeClassify = mapNodeType(transaction.from.type)
+    const toNodeId = transaction.to.address
+    const toNodeClassify = mapNodeType(transaction.to.type)
 
     // Determine levels
     if (levelMap[fromNodeId] === undefined) {
@@ -239,8 +249,8 @@ function mapTransactionToNodeData(transactions: TransactionDetails[]): NodeData[
         data: { label: fromNodeId },
         type: fromNodeClassify,
         details: {
-          publicAddress: fromNodeId,
-          classify: fromNodeClassify,
+          address: fromNodeId,
+          type: fromNodeClassify,
         },
         position: {
           x: initialX + levelMap[fromNodeId] * horizontalSpacing, // Horizontal position based on level
@@ -260,8 +270,8 @@ function mapTransactionToNodeData(transactions: TransactionDetails[]): NodeData[
         data: { label: toNodeId },
         type: toNodeClassify,
         details: {
-          publicAddress: toNodeId,
-          classify: toNodeClassify,
+          address: toNodeId,
+          type: toNodeClassify,
         },
         position: {
           x: initialX + levelMap[toNodeId] * horizontalSpacing, // Horizontal position based on level
@@ -280,8 +290,8 @@ function mapTransactionFields(transactions: TransactionDetails[]): EdgeData[] {
     const { from, to, hash, ...otherDetails } = transaction
     return {
       id: hash,
-      source: from.publicAddress,
-      target: to.publicAddress,
+      source: from.address,
+      target: to.address,
       details: {
         ...otherDetails,
       },
