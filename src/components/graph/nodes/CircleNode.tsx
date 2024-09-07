@@ -20,6 +20,7 @@ const CircleNode: React.FC<NodeProps> = ({ data }) => {
           <User className="text-blue-600" />
         </div>
       </div>
+      <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
       <div style={labelStyle}>{data.label as React.ReactNode}</div>
     </>

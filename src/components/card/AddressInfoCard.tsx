@@ -86,54 +86,6 @@ const AddressInfoCard = ({ nodeData }: { nodeData: NodeData }) => {
               </span>
             </li>
           </ul>
-          <Separator className="my-2" />
-          <ul className="grid gap-3\2">
-            <li className="flex items-center font-bold">
-              <span className="text-muted-foreground w-1/4">From:</span>
-              <span>
-                <Badge
-                  variant="outline"
-                  className="items-center align-middle h-6 gap-1 shadow-sm"
-                >
-                  beaverbuild
-                </Badge>
-              </span>
-            </li>
-            <li className="flex items-center">
-              <span className="text-muted-foreground w-1/4"></span>
-              <span className="text-muted-foreground break-all flex items-center gap-2">
-                0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5
-                <span className="">
-                  <Button variant="outline" className="p-2">
-                    <Copy className="h-3.5 w-3.5" />
-                  </Button>
-                </span>
-              </span>
-            </li>
-            <div className="my-2" />
-            <li className="flex items-center font-bold">
-              <span className="text-muted-foreground w-1/4">To:</span>
-              <span>
-                <Badge
-                  variant="outline"
-                  className="items-center align-middle h-6 gap-1 shadow-sm"
-                >
-                  unknown
-                </Badge>
-              </span>
-            </li>
-            <li className="flex items-center">
-              <span className="text-muted-foreground w-1/4"></span>
-              <span className="text-muted-foreground break-all flex items-center gap-2">
-                0x876528533158c07C1b87291C35F84104cd64Ec01
-                <span className="">
-                  <Button variant="outline" className="p-2">
-                    <Copy className="h-3.5 w-3.5" />
-                  </Button>
-                </span>
-              </span>
-            </li>
-          </ul>
         </div>
         <Separator className="my-4" />
         <div className="grid gap-3">
