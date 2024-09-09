@@ -1,16 +1,21 @@
 'use client'
 import React, { useState, useEffect } from 'react'
-import { EdgeData, NodeData } from '@/types/graph.interface'
 import TxDataNodeGraph from '@/components/graph/TxDataNodeGraph'
 import AddressInfoCard from '../card/AddressInfoCard'
 import TxInfoCard from '../card/TxInfoCard'
-import { getAddressData } from '@/api/transactions/getAddressData'
+import { getEthereumWalletData } from '@/api/GetEthereumWalletData'
+import GraphTxDataTableCard from './GraphTxDataTableCard'
+
+import { EdgeData, NodeData } from '@/types/graph.interface'
+import { getAddressBalance, getAddressTransactions } from '@/services/address'
+import { Transaction } from '@/types/wallet.interface'
 
 const GraphContent = () => {
   const [nodeInfo, setNodeInfo] = useState<NodeData | null>(null)
   const [edgeInfo, setEdgeInfo] = useState<EdgeData | null>(null)
-  const [loading, setLoading] = useState<boolean>(true)
-  const [addressData, setAddressData] = useState<any>(null) // Example data structure
+  const [loading, setLoading] = useState<boolean>(false)
+  const [balance, setBalance] = useState<number>()
+  const [transactions, setTransactions] = useState<Transaction[]>([])
   const [lastUpdated, setLastUpdated] = useState<'node' | 'edge' | null>(null)
 
   const handleNodeClick = (nodeInfo: NodeData) => {
@@ -26,32 +31,30 @@ const GraphContent = () => {
   }
 
   useEffect(() => {
-    // Fetch address data async function
-    const fetchAddressData = async () => {
-      if (!nodeInfo || !nodeInfo.details || !nodeInfo.details.address) {
-        console.log('No valid address found in nodeInfo')
-        setLoading(false)
-        return
-      }
-
-      const address = nodeInfo.details.address // Bitcoin address from nodeInfo
-      console.log('🚀 ~ fetchAddressData ~ address:', address)
-      const response = await getAddressData(address, 50, 0) // Fetch data with limit 50 and offset 0
-
-      if (response) {
-        console.log('🚀 ~ fetchAddressData ~ response:', response)
-        setLoading(false)
-        setAddressData(response)
+    const fetchWalletData = async () => {
+      if (nodeInfo?.details?.address) {
+        try {
+          setLoading(true) // Start loading when fetching begins
+          const balanceData = await getAddressBalance(nodeInfo.details.address)
+          const transactionsData = await getAddressTransactions(nodeInfo.details.address)
+          console.log('🚀 ~ fetchWalletData ~ transactionsData:', transactionsData)
+          console.log('🚀 ~ fetchWalletData ~ balanceData:', balanceData)
+          setBalance(balanceData) // Set the fetched balance
+          setTransactions(transactionsData) // Set the fetched transactions
+        } catch (error) {
+          console.error('Error fetching wallet data:', error)
+        } finally {
+          setLoading(false) // Stop loading after data is fetched
+        }
       } else {
-        console.log('Failed to fetch Bitcoin address data.')
-        setLoading(false)
+        setLoading(false) // Stop loading if no valid address is present
       }
     }
+    console.log('NODE INFO:', nodeInfo)
+    nodeInfo && fetchWalletData()
+  }, [nodeInfo]) // Re-fetch if the address changes
 
-    if (nodeInfo) {
-      fetchAddressData() // Call the fetch function if nodeInfo is available
-    }
-  }, [nodeInfo]) // Adding nodeInfo as a dependency to rerun the effect when it changes
+  useEffect(() => {}, [balance])
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
@@ -63,9 +66,18 @@ const GraphContent = () => {
           />
         </div>
         <div>
-          {loading && <div>Loading...</div>}
-          {!loading && JSON.stringify(addressData)}
-          {nodeInfo && <AddressInfoCard nodeData={nodeInfo} />}
+          {loading ? <div>Loading...</div> : <>NOT LOADING</>}
+          {nodeInfo && (
+            <>
+              <AddressInfoCard nodeData={nodeInfo} balance={balance} loading={loading} />
+            </>
+          )}
+          <div className="h-4"></div>
+          {nodeInfo && !loading && transactions && (
+            <>
+              <GraphTxDataTableCard nodeData={nodeInfo} txs={transactions} />
+            </>
+          )}
           {edgeInfo && <TxInfoCard edgeData={edgeInfo} />}
         </div>
       </div>

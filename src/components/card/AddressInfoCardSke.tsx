@@ -1,5 +1,6 @@
 import React from 'react'
 import { NodeData } from '@/types/graph.interface'
+
 import { Copy, MoreVertical, Check } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -17,17 +18,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Skeleton } from 'antd' // Import Ant Design Skeleton component
+import { Separator } from '@/components/ui/separator'
 import { Badge } from '@/components/ui/badge'
+import TxDataTableCard from './TxDataTableCard'
 
 const AddressInfoCard = ({
   nodeData,
   balance,
-  loading,
 }: {
   nodeData: NodeData
-  balance: number | undefined
-  loading: boolean // Add loading state as a prop
+  balance: number
 }) => {
   const AddressData = nodeData.details
   return (
@@ -66,26 +66,64 @@ const AddressInfoCard = ({
         <div className="grid gap-3">
           <div className="font-semibold">Account Details</div>
           <ul className="grid gap-3">
+            {/* <li className="flex items-center">
+              <span className="text-muted-foreground w-1/4 ">Status:</span>
+              <span>
+                <Badge
+                  variant="outline"
+                  className="text-green-500 border-green-500 items-center align-middle h-6 gap-1 shadow-sm"
+                >
+                  <Check className="h-3 w-3" />
+                  Success
+                </Badge>
+              </span>
+            </li> */}
             <li className="flex items-center">
               <span className="text-muted-foreground w-1/4 ">Balance:</span>
               <span className="flex gap-1">
-                {/* Skeleton loader for the balance */}
-                {loading ? (
-                  <Skeleton.Input active size="small" style={{ height: 12, width: 60 }} />
-                ) : (
-                  <>
-                    <span>{balance}</span>
-                    <span>ETH</span>
-                  </>
-                )}
+                <span>{balance}</span>
+                <span>ETH</span>
+              </span>
+            </li>
+            {/* <li className="flex">
+              <span className="text-muted-foreground w-1/4 ">Timestamp:</span>
+              <span className="grid">
+                <span className="grid">2 days ago </span>
+                <span>Aug-13-2024 12:09:59 PM UTC</span>
+              </span>
+            </li> */}
+          </ul>
+        </div>
+        {/* <Separator className="my-4" />
+        <div className="grid gap-3">
+          <ul className="grid gap-3">
+            <li className="flex items-center">
+              <span className="text-muted-foreground w-1/4">Value:</span>
+              <span className="flex gap-1">
+                <span> {JSON.stringify(balance)}</span>
+                <span>ETH</span>
+              </span>
+            </li>
+            <li className="flex">
+              <span className="text-muted-foreground w-1/4">Transaction Fee:</span>
+              <span className="grid">
+                <span>0.000028440984222 ETH $0.07</span>
+              </span>
+            </li>
+            <li className="flex">
+              <span className="text-muted-foreground w-1/4">Gas Price:</span>
+              <span className="grid">
+                <span className="grid">1.354332582 Gwei</span>
+                <span className="opacity-50">(0.000000001354332582 ETH)</span>
               </span>
             </li>
           </ul>
-        </div>
+        </div> */}
       </CardContent>
 
       <CardFooter className="flex flex-row items-center border-t bg-muted/50 px-6 py-3 m-w-full">
         <div className="text-xs text-muted-foreground">
+          {/* {JSON.stringify(nodeData, null, 2)} */}
           Updated <time dateTime="2023-11-23">2024</time>
         </div>
       </CardFooter>
