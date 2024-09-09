@@ -14,9 +14,14 @@ import {
 interface TxDataVisualizeCardProps {
   nodeData: NodeData
   txs: Transaction[]
+  loading: boolean
 }
 
-const GraphTxDataTableCard: React.FC<TxDataVisualizeCardProps> = ({ nodeData, txs }) => {
+const GraphTxDataTableCard: React.FC<TxDataVisualizeCardProps> = ({
+  nodeData,
+  txs,
+  loading,
+}) => {
   return (
     <>
       <Card className="shadow-md" x-chunk="dashboard-05-chunk-3">
@@ -25,9 +30,8 @@ const GraphTxDataTableCard: React.FC<TxDataVisualizeCardProps> = ({ nodeData, tx
           <CardDescription>Recent transactions</CardDescription>
         </CardHeader>
         <CardContent>
-          <GraphTxDataTable txs={txs} />
+          <GraphTxDataTable txs={txs} loading={loading} />
         </CardContent>
-        {/* <CardContent>{JSON.stringify(txs)}</CardContent> */}
       </Card>
     </>
   )

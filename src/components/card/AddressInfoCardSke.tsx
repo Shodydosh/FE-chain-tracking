@@ -18,9 +18,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Separator } from '@/components/ui/separator'
-import { Badge } from '@/components/ui/badge'
-import TxDataTableCard from './TxDataTableCard'
 
 const AddressInfoCard = ({
   nodeData,

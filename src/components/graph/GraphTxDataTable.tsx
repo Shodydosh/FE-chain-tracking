@@ -4,7 +4,6 @@ import * as React from 'react'
 import useDebounce from '@/lib/useDebounce'
 import { useEffect, useState, useMemo } from 'react'
 import { CaretSortIcon, ChevronDownIcon, DotsHorizontalIcon } from '@radix-ui/react-icons'
-import { Check, X } from 'lucide-react'
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -89,6 +88,37 @@ const assetColorMapping: { [key: string]: string } = {
   KNCL: '#32cd32', // Kyber Network Crystal Legacy (KNCL) - Lime Green
 }
 
+const SkeletonRow: React.FC = () => (
+  <TableRow>
+    <TableCell>
+      <div className="my-2 w-0 "></div>
+    </TableCell>
+    <TableCell>
+      <div className="my-2 h-6 bg-gray-300 rounded-md w-full animate-pulse"></div>
+    </TableCell>
+    <TableCell>
+      <div className="my-2 h-6 bg-gray-300 rounded-md w-full animate-pulse"></div>
+    </TableCell>
+    <TableCell>
+      <div className="my-2 h-6 bg-gray-300 rounded-md w- animate-pulse"></div>
+    </TableCell>
+    <TableCell>
+      <div className="my-2 h-6 bg-gray-300 rounded-md w-full animate-pulse"></div>
+    </TableCell>
+    <TableCell>
+      <div className="my-2 h-6 bg-gray-300 rounded-md w-full animate-pulse"></div>
+    </TableCell>
+    <TableCell>
+      <div className="my-2 h-6 bg-gray-300 rounded-md w-full animate-pulse"></div>
+    </TableCell>
+    <TableCell>
+      <div className="my-2 w-0 "></div>
+    </TableCell>
+  </TableRow>
+)
+
+//! NEW
+
 // Define a custom TableMeta type
 interface CustomTableMeta extends TableMeta<Transaction> {
   toggleAdd: (transaction: Transaction) => void
@@ -101,9 +131,10 @@ const initialTransactions = transactions_json.map((txn) => ({
 
 interface GraphTxDataTableProps {
   txs: Transaction[]
+  loading: boolean
 }
 
-const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs }) => {
+const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs, loading }) => {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
@@ -111,7 +142,6 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs }) => {
   const [isClient, setIsClient] = useState(false)
 
   const [data, setData] = useState<Transaction[]>([])
-  const [isLoading, setIsLoading] = useState(false) //TODO: skeleton loading
   const [search, setSearch] = useState('')
   const debouncedSearch = useDebounce(search, 500) // Debounce the search
   const [totalCount, setTotalCount] = useState(0)
@@ -188,7 +218,7 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs }) => {
     {
       accessorKey: 'to',
       header: 'To',
-      cell: ({ row }) => <div>{row.getValue('to')}</div>,
+      cell: ({ row }) => <div className="text-blue-700">{row.getValue('to')}</div>,
     },
     {
       accessorKey: 'value',
@@ -299,22 +329,8 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs }) => {
     setIsClient(true)
     setTotalCount(table.getFilteredRowModel().rows.length)
   }, [])
+  useEffect(() => {}, [addedTransactions, data])
   useEffect(() => {
-    console.log(addedTransactions.length)
-  }, [addedTransactions])
-  useEffect(() => {
-    const params = new URLSearchParams({
-      search: debouncedSearch,
-      pageNumber: (pageIndex + 1).toString(),
-      pageSize: pageSize.toString(),
-      ...(sorting.length > 0 && {
-        sortBy: sorting[0].id,
-        sortOrder: sorting[0].desc ? 'desc' : 'asc',
-      }),
-    })
-
-    console.log('🚩🚩' + params.toString())
-    setIsLoading(true)
     const filteredData = txs
     const sortedData = filteredData
 
@@ -327,12 +343,12 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs }) => {
     setTimeout(() => {
       setData(paginatedData)
       setTotalCount(filteredData.length)
-      setIsLoading(false)
     }, 500) // Simulate network delay
   }, [debouncedSearch, sorting, pageIndex, pageSize])
   useEffect(() => {
-    console.log('SEARCH: ' + search)
-  }, [search, txs])
+    setData(txs)
+    console.log(txs)
+  }, [txs])
 
   return (
     <div className="w-full">
@@ -393,15 +409,20 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs }) => {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              loading ? (
+                table.getRowModel().rows.map((row) => <SkeletonRow key={row.id} />)
+              ) : (
+                txs &&
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              )
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
@@ -411,6 +432,7 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs }) => {
             )}
           </TableBody>
         </Table>
+        {/* {JSON.stringify(txs)} */}
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
         <div className="flex-1 text-sm text-muted-foreground">
