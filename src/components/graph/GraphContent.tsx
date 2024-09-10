@@ -40,6 +40,7 @@ const GraphContent = () => {
           toast({
             title: 'Loading wallet data',
             description: 'hehe',
+            duration: 2000,
           })
           setLoading(true) // Start loading when fetching begins
           const balanceData = await getAddressBalance(nodeInfo.details.address)
@@ -65,7 +66,7 @@ const GraphContent = () => {
 
   return (
     <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8 lg:grid-cols-3 xl:grid-cols-3">
-      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 bg-red-500">
+      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-2 ">
         <div className="">
           <TxDataNodeGraph
             onAddressClick={handleNodeClick} // Capture node click event
@@ -86,7 +87,7 @@ const GraphContent = () => {
           {edgeInfo && <TxInfoCard edgeData={edgeInfo} />}
         </div>
       </div>
-      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-1 bg-green-300">
+      <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-1 ">
         {nodeInfo && (
           <>
             <AddressInfoCard nodeData={nodeInfo} balance={balance} loading={loading} />

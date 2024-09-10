@@ -231,9 +231,20 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs, loading }) => 
     {
       accessorKey: 'value',
       header: () => <div className="text-right">Value</div>,
-      cell: ({ row }) => (
-        <div className="text-right font-medium">{row.getValue('value')}</div>
-      ),
+      cell: ({ row }) => {
+        const value: string = row.getValue('value')
+        const formattedValue = parseFloat(value).toFixed(5) // Ensure 5 decimal places
+        const valueString = value.toString() // Convert value to string for splitting
+        const hasMoreDecimals =
+          valueString.includes('.') && valueString.split('.')[1].length > 5
+
+        return (
+          <div className="text-right font-medium">
+            {formattedValue}
+            {hasMoreDecimals && '..'}
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'asset',
