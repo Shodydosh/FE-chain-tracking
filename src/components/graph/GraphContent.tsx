@@ -9,6 +9,8 @@ import { EdgeData, NodeData } from '@/types/graph.interface'
 import { getAddressBalance, getAddressTransactions } from '@/services/address'
 import { Transaction } from '@/types/wallet.interface'
 
+import { useToast } from '@/hooks/use-toast'
+
 const GraphContent = () => {
   const [nodeInfo, setNodeInfo] = useState<NodeData | null>(null)
   const [edgeInfo, setEdgeInfo] = useState<EdgeData | null>(null)
@@ -16,6 +18,7 @@ const GraphContent = () => {
   const [balance, setBalance] = useState<number>()
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [lastUpdated, setLastUpdated] = useState<'node' | 'edge' | null>(null)
+  const { toast } = useToast()
 
   // Trigger notification on balance or transactions fetch
   const handleNodeClick = (nodeInfo: NodeData) => {
@@ -34,6 +37,10 @@ const GraphContent = () => {
     const fetchWalletData = async () => {
       if (nodeInfo?.details?.address) {
         try {
+          toast({
+            title: 'Loading wallet data',
+            description: 'hehe',
+          })
           setLoading(true) // Start loading when fetching begins
           const balanceData = await getAddressBalance(nodeInfo.details.address)
           const transactionsData = await getAddressTransactions(nodeInfo.details.address)

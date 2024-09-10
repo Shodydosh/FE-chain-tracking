@@ -4,6 +4,7 @@ import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { ConfigProvider } from 'antd'
 import { createTheme, MantineProvider } from '@mantine/core'
+import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
 
 const theme = createTheme({
@@ -57,6 +58,7 @@ export default function RootLayout({
           >
             <AntdRegistry>
               <TooltipProvider>{children}</TooltipProvider>
+              <Toaster />
             </AntdRegistry>
           </ConfigProvider>
         </MantineProvider>
