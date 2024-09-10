@@ -208,7 +208,11 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs, loading }) => 
     {
       accessorKey: 'hash',
       header: 'Transaction Hash',
-      cell: ({ row }) => <div className="truncate max-w-xs">{row.getValue('hash')}</div>,
+      cell: ({ row }) => {
+        const hash: string = row.getValue('hash')
+        const shortenedHash = `${hash.slice(0, 6)}...${hash.slice(-6)}`
+        return <div className="truncate max-w-xs">{shortenedHash}</div>
+      },
     },
     // {
     //   accessorKey: 'from',
@@ -218,7 +222,11 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs, loading }) => 
     {
       accessorKey: 'to',
       header: 'To',
-      cell: ({ row }) => <div className="text-blue-700">{row.getValue('to')}</div>,
+      cell: ({ row }) => {
+        const hash: string = row.getValue('to')
+        const shortenedHash = `${hash.slice(0, 6)}...${hash.slice(-6)}`
+        return <div className="text-blue-600 truncate max-w-xs">{shortenedHash}</div>
+      },
     },
     {
       accessorKey: 'value',
