@@ -5,6 +5,9 @@ import 'dotenv/config';
 const app = express();
 const port: number = 3002;
 
+// const cors = require('cors');
+import cors from 'cors'
+app.use(cors());
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello, TypeScript + Node.js + Express!');
