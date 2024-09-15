@@ -2,9 +2,102 @@ import { BigNumber, ethers } from 'ethers';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Alchemy, Network, AssetTransfersCategory, SortingOrder, fromHex, TokenMetadataResponse, TokenBalancesResponse } from 'alchemy-sdk';
 
-import { getRandomDrpcAPI, getRandomAlchemyAPI } from '../configs/provider.configs';
+import { getRandomDrpcAPI, getRandomAlchemyAPI, getRandomBitQueryAPI } from '../configs/provider.configs';
 import { BigNumbertoEther } from '~/utils/convertEther';
 import { ProviderType } from '~/types/providers.type';
+import axios from 'axios';
+import { timestampToDate } from '~/utils/datetime';
+
+interface BalanceHistory {
+  value: string; // assuming value can be a string (e.g., for large numbers)
+  transferAmount: string; // same as above
+  timestamp: string; // ISO 8601 date string
+  block: string; // block number or hash
+}
+interface EthereumResponse {
+  data: {
+    ethereum: {
+      address: {
+        balances: {
+          history: BalanceHistory[];
+          currency: {
+            name: string;
+            symbol: string;
+          };
+        }[];
+        smartContract: {
+          currency: {
+            symbol: string;
+            name: string;
+            tokenType: string;
+          };
+          contractType: string;
+        };
+      }[];
+    };
+  }
+}
+async function getUserInformation(address: string, currency_address: string, timestamp: number) {
+  try {
+    const [datetimeISO, dateISO] = timestampToDate(timestamp)
+    console.log("dateISO", datetimeISO)
+    const API_KEY = getRandomBitQueryAPI()
+    console.log("API_KEY", API_KEY)
+    console.log("currency_address", currency_address)
+    const response= await axios.post(
+      'https://graphql.bitquery.io',
+      {
+        query: `
+        query MyQuery {
+          ethereum {
+            address(address: {is: "${address}"}) {
+              balances(
+                currency: {is: "${currency_address}"}
+                date: {after: "${datetimeISO}"}
+              ) {
+                history {
+                  value
+                  transferAmount
+                  timestamp
+                  block
+                }
+                currency {
+                  name
+                  symbol
+                }
+              }
+              smartContract {
+                currency {
+                  symbol
+                  name
+                  tokenType
+                }
+              }
+            }
+          }
+        }
+        `
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-API-KEY': `${API_KEY}`
+        }
+      }
+    );
+    const result: EthereumResponse = response.data;
+
+    const last_timestamp=  result.data.ethereum.address[0].balances[0].history.slice(-1)[0].timestamp
+    const returnObject = {
+      "result": result,
+      "last_timestamp": last_timestamp
+    }
+    return returnObject
+  } catch (error) {
+    console.log(error)
+    throw new Error()
+  }
+}
 async function getUserBalance(address: string) {
   const provider: JsonRpcProvider = getRandomDrpcAPI();
   const balance: BigNumber = await provider.getBalance(address);
@@ -44,7 +137,7 @@ type TokenBalanceReturn = {
 async function getAddressTokenBalance(ownerAddress: string, tokenAddresses: string[]) {
   try {
     const alchemy: Alchemy = getRandomAlchemyAPI();
-    const data: TokenBalancesResponse= await alchemy.core.getTokenBalances(ownerAddress, tokenAddresses);
+    const data: TokenBalancesResponse = await alchemy.core.getTokenBalances(ownerAddress, tokenAddresses);
     // const dataReturn: TokenBalanceReturn = 
     return data;
   } catch {
@@ -196,5 +289,5 @@ export {
   getAddressERC721TransactionByERC20,
   getAddressERC721Transaction,
   getNFTTransaction,
-  getAddressTokenBalance
+  getAddressTokenBalance, getUserInformation
 };

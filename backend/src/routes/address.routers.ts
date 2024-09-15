@@ -7,7 +7,8 @@ import {
   getAddressERC721TransactionsByETH,
   getAddressERC721Transactions,
   getNFTTransaction,
-  getAddressTokenBalance
+  getAddressTokenBalance,
+  getUserInformation
 } from '../controllers/address.controller'
 
 const router = express.Router();
@@ -21,5 +22,6 @@ router.get('/erc721-transactions/erc20/:address', getAddressERC721TransactionsBy
 router.get('/erc721-transactions/:address', getAddressERC721Transactions);
 router.get('/NFT-transactions/:nftaddress', getNFTTransaction);
 router.get('/balance/token/:address', getAddressTokenBalance);
+router.get('/information/:address', getUserInformation);
 
 export default router;

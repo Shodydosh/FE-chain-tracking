@@ -10,9 +10,24 @@ import {
   getAddressERC721Transaction as getAddressERC721TransactionService,
   getNFTTransaction as getNFTTransactionService,
   getAddressTokenBalance as getAddressTokenBalanceService,
-
+  getUserInformation as getUserInformationService
 } from '../services/address.services';
 import { AssetTransfersCategory, SortingOrder } from 'alchemy-sdk';
+import axios from 'axios';
+async function getUserInformation(req: Request, res: Response) {
+  try {
+    const { address } = req.params;
+    const { currency_address, timestamp } = req.query
+
+    const timestampNumber = Number(timestamp)
+
+    const serviceResult =  await getUserInformationService(address, currency_address as string, timestampNumber)
+    res.send(serviceResult)
+
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 async function getUserBalance(req: Request, res: Response) {
   try {
@@ -318,11 +333,11 @@ async function getAddressTokenBalance(req: Request, res: Response) {
     if (!address) {
       return res.status(400).json({ error: 'Address is required' });
     }
-  
+
     if (address.length != 42) {
       return res.status(400).json({ error: 'Invalid address' });
     }
-  
+
     if (typeof (tokenId) !== 'string') {
       return res.status(400).json({ error: 'Invalid tokenId type' });
     }
@@ -345,5 +360,6 @@ export {
   getAddressERC721TransactionsByERC20,
   getAddressERC721Transactions,
   getNFTTransaction,
-   getAddressTokenBalance
+  getAddressTokenBalance,
+  getUserInformation
 };
