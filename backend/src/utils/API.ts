@@ -20,13 +20,24 @@ export const RPC_URLs = [
   "https://lb.drpc.org/ogrpc?network=ethereum&dkey=AvFHGgG8vUoprYSFl1RGV31yt0wlZC8R74M_mjoJxwjg",
   "https://lb.drpc.org/ogrpc?network=ethereum&dkey=AvFHGgG8vUoprYSFl1RGV315MiDkZC8R74NAmjoJxwjg",
   "https://lb.drpc.org/ogrpc?network=ethereum&dkey=AvFHGgG8vUoprYSFl1RGV31-DezbZC8R74NBmjoJxwjg",
-  ]
-  
-  
+]
+
 export const ALCHEMY_URLs = [
   "KVamYsxXWBIRf00BJRgKu7aa6PUHZHLB",
   "MKvBAJsZLrRwfyXqgLavDif9Ba6xs9eo",
   "EuAx0AUDQNJVhzMkD1_JyiIR_kKT9B2y",
   "qwjRfs2eH5FC28dCv61GfNaq49rsQ8np",
   "Oqgjn7IjRxGr7am55wbOVplcaJkiHRFL",
+
+  "Q0Owx3TJFeQ0r3m-YJvUFNk3Uqiz2soO",
+
+  "3hKKBhtrh2xATG8gSeYGTFqgYcXAjQrQ",
+  "aIyZfeTLBAHPbg0_oFShMAV-bGHwyYzv",
+  "ip4FTkys1dD6IUoePNbh-XTHzpu8aWt4",
+  "yc0ctGXcQzwXcRNSBJLV3eNWhli8esMI",
+  "Q0Owx3TJFeQ0r3m-YJvUFNk3Uqiz2soO",
+]
+
+export const BIT_QUERY_URLS = [
+  'BQYF2DaqDgK5caqnyPKTW5RjdGm6HDOS',
 ]
