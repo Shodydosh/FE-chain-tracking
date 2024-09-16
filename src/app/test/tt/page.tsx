@@ -24,7 +24,7 @@ const sampleTransaction: TransactionDetails = {
   gasPrice: '65000000000',
   gasLimit: '21000',
   to: {
-    address: '0x05f51AAb068CAa6Ab7eeb672f88c180f67F17eC7',
+    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
     type: 'contract_exchange',
   },
   value: '1000000000000000000',
