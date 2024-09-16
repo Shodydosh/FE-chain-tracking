@@ -5,6 +5,7 @@ import { TooltipProvider } from '@/components/ui/tooltip'
 import { ConfigProvider } from 'antd'
 import { createTheme, MantineProvider } from '@mantine/core'
 import { Toaster } from '@/components/ui/toaster'
+import StoreProvider from '@/app/StoreProvider'
 import './globals.css'
 
 const theme = createTheme({
@@ -26,42 +27,44 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <MantineProvider theme={theme} defaultColorScheme="light">
-          <ConfigProvider
-            theme={{
-              components: {
-                DatePicker: {
-                  // colorPrimary: 'black',
-                  colorPrimary: 'grey',
-                  hoverBorderColor: 'black',
-                  activeBorderColor: 'black',
-                  cellRangeBorderColor: 'black',
-                  cellHoverWithRangeBg: 'black',
-                  cellActiveWithRangeBg: 'black',
-                  algorithm: true, // Enable algorithm
+        <StoreProvider>
+          <MantineProvider theme={theme} defaultColorScheme="light">
+            <ConfigProvider
+              theme={{
+                components: {
+                  DatePicker: {
+                    // colorPrimary: 'black',
+                    colorPrimary: 'grey',
+                    hoverBorderColor: 'black',
+                    activeBorderColor: 'black',
+                    cellRangeBorderColor: 'black',
+                    cellHoverWithRangeBg: 'black',
+                    cellActiveWithRangeBg: 'black',
+                    algorithm: true, // Enable algorithm
+                  },
+                  Button: {
+                    colorPrimary: '#1677ff', // Brand color
+                    colorPrimaryHover: '#4096ff', // Hover state color
+                    colorPrimaryActive: '#0958d9', // Active state color
+                    colorPrimaryBorder: '#91caff', // Border color
+                    colorLink: '#1677ff', // Link color
+                    colorLinkHover: '#69b1ff', // Link hover color
+                    colorLinkActive: '#0958d9', // Link active color
+                    defaultActiveColor: 'black', // Add this if needed, otherwise remove
+                    defaultActiveBorderColor: 'black', // Add this if needed, otherwise remove
+                    defaultHoverBorderColor: 'black', // Add this if needed, otherwise remove
+                    defaultHoverColor: 'black', // Add this if needed, otherwise remove
+                  },
                 },
-                Button: {
-                  colorPrimary: '#1677ff', // Brand color
-                  colorPrimaryHover: '#4096ff', // Hover state color
-                  colorPrimaryActive: '#0958d9', // Active state color
-                  colorPrimaryBorder: '#91caff', // Border color
-                  colorLink: '#1677ff', // Link color
-                  colorLinkHover: '#69b1ff', // Link hover color
-                  colorLinkActive: '#0958d9', // Link active color
-                  defaultActiveColor: 'black', // Add this if needed, otherwise remove
-                  defaultActiveBorderColor: 'black', // Add this if needed, otherwise remove
-                  defaultHoverBorderColor: 'black', // Add this if needed, otherwise remove
-                  defaultHoverColor: 'black', // Add this if needed, otherwise remove
-                },
-              },
-            }}
-          >
-            <AntdRegistry>
-              <TooltipProvider>{children}</TooltipProvider>
-              <Toaster />
-            </AntdRegistry>
-          </ConfigProvider>
-        </MantineProvider>
+              }}
+            >
+              <AntdRegistry>
+                <TooltipProvider>{children}</TooltipProvider>
+                <Toaster />
+              </AntdRegistry>
+            </ConfigProvider>
+          </MantineProvider>
+        </StoreProvider>
       </body>
     </html>
   )

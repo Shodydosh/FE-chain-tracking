@@ -76,7 +76,6 @@ const GraphContent = () => {
         <div className="w-full">
           {nodeInfo && (
             <>
-              {/* <div className="h-4"></div> */}
               <GraphTxDataTableCard
                 nodeData={nodeInfo}
                 txs={transactions}
