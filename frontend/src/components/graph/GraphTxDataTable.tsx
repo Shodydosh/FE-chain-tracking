@@ -208,7 +208,11 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs, loading }) => 
     {
       accessorKey: 'hash',
       header: 'Transaction Hash',
-      cell: ({ row }) => <div className="truncate max-w-xs">{row.getValue('hash')}</div>,
+      cell: ({ row }) => {
+        const hash: string = row.getValue('hash')
+        const shortenedHash = `${hash.slice(0, 6)}...${hash.slice(-6)}`
+        return <div className="truncate max-w-xs">{shortenedHash}</div>
+      },
     },
     // {
     //   accessorKey: 'from',
@@ -218,14 +222,29 @@ const GraphTxDataTable: React.FC<GraphTxDataTableProps> = ({ txs, loading }) => 
     {
       accessorKey: 'to',
       header: 'To',
-      cell: ({ row }) => <div className="text-blue-700">{row.getValue('to')}</div>,
+      cell: ({ row }) => {
+        const hash: string = row.getValue('to')
+        const shortenedHash = `${hash.slice(0, 6)}...${hash.slice(-6)}`
+        return <div className="text-blue-600 truncate max-w-xs">{shortenedHash}</div>
+      },
     },
     {
       accessorKey: 'value',
       header: () => <div className="text-right">Value</div>,
-      cell: ({ row }) => (
-        <div className="text-right font-medium">{row.getValue('value')}</div>
-      ),
+      cell: ({ row }) => {
+        const value: string = row.getValue('value')
+        const formattedValue = parseFloat(value).toFixed(5) // Ensure 5 decimal places
+        const valueString = value.toString() // Convert value to string for splitting
+        const hasMoreDecimals =
+          valueString.includes('.') && valueString.split('.')[1].length > 5
+
+        return (
+          <div className="text-right font-medium">
+            {formattedValue}
+            {hasMoreDecimals && '..'}
+          </div>
+        )
+      },
     },
     {
       accessorKey: 'asset',
