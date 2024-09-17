@@ -18,25 +18,24 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Separator } from '../ui/separator'
+import { longSlice } from '@/helpers/hashSlice'
 
 const AddressInfoCard = ({
-  nodeData,
   balance,
+  address,
 }: {
-  nodeData: NodeData
-  balance: number
+  balance: number | undefined
+  address: string
 }) => {
-  const AddressData = nodeData.details
   return (
     <Card className="overflow-hidden shadow-md" x-chunk="dashboard-05-chunk-4">
       <CardHeader className="flex flex-row items-start bg-muted/50">
         <div className="grid gap-0.5">
           <CardTitle className="group flex items-center gap-2 text-lg">
-            {'Address ' + AddressData.address + "'s Info"}
+            {longSlice(address)}
           </CardTitle>
-          <CardDescription className="break-all pr-6">
-            {AddressData.address}
-          </CardDescription>
+          <CardDescription className="break-all pr-6"></CardDescription>
         </div>
         <div className="ml-auto flex items-center gap-1">
           <Button size="sm" variant="outline" className="h-8 gap-1">
@@ -61,7 +60,9 @@ const AddressInfoCard = ({
 
       <CardContent className="p-6 text-sm">
         <div className="grid gap-3">
-          <div className="font-semibold">Account Details</div>
+          <div className="font-semibold">
+            Address <span className="font-semibold">{longSlice(address)}</span> Details
+          </div>
           <ul className="grid gap-3">
             {/* <li className="flex items-center">
               <span className="text-muted-foreground w-1/4 ">Status:</span>
@@ -97,7 +98,7 @@ const AddressInfoCard = ({
             <li className="flex items-center">
               <span className="text-muted-foreground w-1/4">Value:</span>
               <span className="flex gap-1">
-                <span> {JSON.stringify(balance)}</span>
+                <span> 123</span>
                 <span>ETH</span>
               </span>
             </li>

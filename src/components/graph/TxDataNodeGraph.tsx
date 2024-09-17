@@ -15,12 +15,10 @@ import '@xyflow/react/dist/style.css'
 // import { initialEdges, initialNodes } from './NodesAndEdges'
 import { EdgeData, NodeData } from '@/types/graph.interface'
 import './overview.css'
-import TESTT from '@/app/test/tt/page'
 
 //redux
 import { mapTransactionToNodeData, mapTransactionFields } from './NodesAndEdges'
 import { useSelector } from 'react-redux' // Add useSelector to listen to Redux store
-import { useTransactionData } from './NodesAndEdges'
 import { RootState } from '@/lib/store'
 
 const snapGrid: SnapGrid = [20, 20]
@@ -109,7 +107,6 @@ export default function Flow({ onAddressClick, onTxClick }: FlowProps) {
             <Background variant={BackgroundVariant.Dots} gap={12} size={1} />
           </ReactFlow>
         </div>
-        <TESTT></TESTT>
       </div>
     </main>
   )

@@ -83,10 +83,10 @@ const GraphContent = () => {
               />
             </>
           )}
-          {edgeInfo && <TxInfoCard edgeData={edgeInfo} />}
         </div>
       </div>
       <div className="grid auto-rows-max items-start gap-4 md:gap-8 lg:col-span-1 ">
+        {edgeInfo && <TxInfoCard edgeData={edgeInfo} />}
         {nodeInfo && (
           <>
             <AddressInfoCard nodeData={nodeInfo} balance={balance} loading={loading} />

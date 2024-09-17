@@ -18,13 +18,13 @@ const sampleTransaction: TransactionDetails = {
   transactionIndex: 47,
   confirmations: 9204872,
   from: {
-    address: '0xB84844becf02D9f9839f2e6860411E0083bf1c7b',
+    address: 'xx',
     type: 'EOA_active',
   },
   gasPrice: '65000000000',
   gasLimit: '21000',
   to: {
-    address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+    address: 'vasv',
     type: 'contract_exchange',
   },
   value: '1000000000000000000',

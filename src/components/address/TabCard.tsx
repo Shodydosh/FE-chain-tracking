@@ -34,14 +34,17 @@ import {
 } from '@/components/ui/table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-const PortfolioTableCard = () => {
+import Activities from './Activities'
+
+const TabCard = () => {
   return (
     <>
       <Tabs defaultValue="portfolio">
         <div className="flex items-center">
           <TabsList>
             <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
-            <TabsTrigger value="transactions">Transactions</TabsTrigger>
+            <TabsTrigger value="transactions">Recent Transactions</TabsTrigger>
+            <TabsTrigger value="activities">Activities</TabsTrigger>
           </TabsList>
           <div className="ml-auto flex items-center gap-2">
             <DropdownMenu>
@@ -158,9 +161,21 @@ const PortfolioTableCard = () => {
             </CardContent>
           </Card>
         </TabsContent>
+
+        <TabsContent value="activities">
+          <Card x-chunk="dashboard-05-chunk-3">
+            <CardHeader className="px-7">
+              <CardTitle>Activities</CardTitle>
+              <CardDescription>Portfolio description</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Activities />
+            </CardContent>
+          </Card>
+        </TabsContent>
       </Tabs>
     </>
   )
 }
 
-export default PortfolioTableCard
+export default TabCard
