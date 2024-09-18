@@ -15,6 +15,7 @@ import { AddressTxByMonth } from '../chart/AddressTxByMonth'
 const AddressContent = () => {
   const { toast } = useToast()
   const params = useParams<{ address: string }>()
+  //@ts-ignore
   const address = params.address
   const [balance, setBalance] = useState<number>()
   const [transactions, setTransactions] = useState<Transaction[]>([])

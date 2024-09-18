@@ -36,6 +36,10 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import Activities from './Activities'
 
+import { FreqBarChart } from '../chart/portfolioChart/FreqBarChart'
+import { PortfolioPieChart } from '../chart/portfolioChart/PortfolioPieChart'
+import { BalanceByTimeAreaChart } from '../chart/portfolioChart/BalanceByTimeAreaChart'
+
 const TabCard = () => {
   return (
     <>
@@ -69,10 +73,21 @@ const TabCard = () => {
           </div>
         </div>
         <TabsContent value="portfolio">
+          <div className="grid flex-1 items-start gap-1 my-4 md:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+            <div className="flex flex-col h-full">
+              <PortfolioPieChart />
+            </div>
+            <div className="flex flex-col h-full">
+              <FreqBarChart />
+            </div>
+            <div className="flex flex-col h-full xl:col-span-2">
+              <BalanceByTimeAreaChart />
+            </div>
+          </div>
           <Card x-chunk="dashboard-05-chunk-3">
             <CardHeader className="px-7">
               <CardTitle>Porfolio</CardTitle>
-              <CardDescription>Portfolio description</CardDescription>
+              <CardDescription>Portfolio description for each asset</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>

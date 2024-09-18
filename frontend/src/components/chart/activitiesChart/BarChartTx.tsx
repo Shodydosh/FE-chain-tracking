@@ -17,6 +17,8 @@ import {
   ChartTooltipContent,
 } from '@/components/ui/chart'
 
+import '../chartStyle.css'
+
 export const description = 'An interactive bar chart showing transaction types per month'
 
 const chartData = [
@@ -106,15 +108,15 @@ const chartData = [
 const chartConfig = {
   receive: {
     label: 'Receive',
-    color: 'hsl(var(--chart-1))',
+    color: 'hsl(var(--chart-3))',
   },
   sent: {
     label: 'Sent',
-    color: 'hsl(var(--chart-2))',
+    color: 'hsl(var(--chart-4))',
   },
   callContract: {
     label: 'Call Contract',
-    color: 'hsl(var(--chart-3))',
+    color: 'hsl(var(--chart-5))',
   },
 } satisfies ChartConfig
 
