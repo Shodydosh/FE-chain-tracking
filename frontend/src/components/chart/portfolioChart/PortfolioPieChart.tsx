@@ -22,44 +22,24 @@ import {
 export const description = 'A donut chart with text'
 
 const chartData = [
-  {
-    asset: 'Ethereum',
-    amount: Math.random() * 1000,
-    fill: 'var(--color-ethereum)',
-  },
-  {
-    asset: 'Bitcoin',
-    amount: Math.random() * 100,
-    fill: 'var(--color-bitcoin)',
-  },
-  {
-    asset: 'Polygon',
-    amount: Math.random() * 100,
-    fill: 'var(--color-polygon)',
-  },
-  {
-    asset: 'Solana',
-    amount: Math.random() * 100,
-    fill: 'var(--color-solana)',
-  },
-  {
-    asset: 'Other',
-    amount: Math.random() * 100,
-    fill: 'var(--color-other)',
-  },
+  { asset: 'Ethereum', amount: 40, fill: 'var(--color-ethereum)' },
+  { asset: 'Bitcoin', amount: 35, fill: 'var(--color-bitcoin)' },
+  { asset: 'Polygon', amount: 15, fill: 'var(--color-polygon)' },
+  { asset: 'Solana', amount: 7, fill: 'var(--color-solana)' },
+  { asset: 'Other', amount: 3, fill: 'var(--color-other)' },
 ]
 
 const chartConfig = {
   amount: {
-    label: 'Value $',
+    label: 'Portfolio',
   },
   ethereum: {
     label: 'Ethereum',
-    color: 'hsl(var(--chart-5))',
+    color: 'hsl(var(--chart-1))',
   },
   bitcoin: {
     label: 'Bitcoin',
-    color: 'hsl(var(--chart-4))',
+    color: 'hsl(var(--chart-2))',
   },
   polygon: {
     label: 'Polygon',
@@ -67,11 +47,11 @@ const chartConfig = {
   },
   solana: {
     label: 'Solana',
-    color: 'hsl(var(--chart-2))',
+    color: 'hsl(var(--chart-4))',
   },
   other: {
     label: 'Other',
-    color: 'hsl(var(--chart-1))',
+    color: 'hsl(var(--chart-5))',
   },
 } satisfies ChartConfig
 
@@ -83,8 +63,8 @@ export function PortfolioPieChart() {
   return (
     <Card className="h-full">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Asset Allocation</CardTitle>
-        <CardDescription>Asset Allocation info</CardDescription>
+        <CardTitle>Pie Chart - Blockchain Portfolio</CardTitle>
+        <CardDescription>Asset Allocation in 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -113,7 +93,7 @@ export function PortfolioPieChart() {
                         <tspan
                           x={viewBox.cx}
                           y={viewBox.cy}
-                          className="fill-foreground text-xl font-bold"
+                          className="fill-foreground text-3xl font-bold"
                         >
                           {totalAmount.toLocaleString()}
                         </tspan>
